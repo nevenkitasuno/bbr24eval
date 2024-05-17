@@ -60,6 +60,7 @@ namespace AlgorithmsDataStructures
 
             if(head.value == _value)
             {
+                if (head.next == null) tail = null;
                 head = head.next;
                 return true; // if node was removed
             }
@@ -88,33 +89,8 @@ namespace AlgorithmsDataStructures
 
         public void RemoveAll(int _value)
         {
-            // remove all nodes with given value
-
-            if(head == null) return;
-
-            while(head.value == _value)
-            {
-                head = head.next;
-            }
-            
-            Node prev = head;
-
-            Node node = head.next;
-
-            while (node != null)
-            {
-                if (node.value == _value)
-                {
-                    prev.next = prev.next.next;
-                    node = prev.next;
-                }
-                else
-                {
-                    prev = node;
-                    node = node.next;
-                }
-            }
-            tail = prev;
+            while (Remove(_value))
+            {continue; }
         }
 
         public void Clear()
