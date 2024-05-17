@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures
@@ -73,6 +73,7 @@ namespace AlgorithmsDataStructures
                 if (node.value == _value)
                 {
                     prev.next = prev.next.next;
+                    if (prev.next == null) tail = prev;
                     return true;
                 }
                 else
@@ -113,6 +114,7 @@ namespace AlgorithmsDataStructures
                     node = node.next;
                 }
             }
+            tail = prev;
         }
 
         public void Clear()
