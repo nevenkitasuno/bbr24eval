@@ -21,6 +21,22 @@ namespace AlgorithmsDataStructures
             tail = null;
         }
 
+        public LinkedList SumElements(LinkedList other)
+        {
+            if (other.head == null || Count() != other.Count()) return null;
+            
+            LinkedList result = new LinkedList();
+            Node node1 = head;
+            Node node2 = other.head;
+            while (node1 != null)
+            {
+                result.AddInTail(new Node(node1.value + node2.value));
+                node1 = node1.next;
+                node2 = node2.next;
+            }
+            return result;
+        }
+
         public void AddInTail(Node _item)
         {
             if (head == null) head = _item;
