@@ -123,6 +123,8 @@ namespace AlgorithmsDataStructures
             {
                 _nodeToInsert.next = head;
                 head = _nodeToInsert;
+                if (head.next == null)
+                tail = head;
                 return;
             }
 
