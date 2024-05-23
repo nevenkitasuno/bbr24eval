@@ -37,5 +37,5 @@ namespace AlgorithmsDataStructures
             return Elements.Last.Value;
         }
     }
-
 }
+
