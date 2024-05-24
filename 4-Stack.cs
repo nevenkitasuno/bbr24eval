@@ -48,6 +48,8 @@ namespace AlgorithmsDataStructures
             {
                 c = expr.Pop();
 
+                if (c == '=') return result.Pop();
+
                 if ('0' <= c && c <= '9')
                 {
                     result.Push(c - '0');
