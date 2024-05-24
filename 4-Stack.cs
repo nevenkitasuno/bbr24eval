@@ -1,8 +1,73 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgorithmsDataStructures
 {
+    public class Exercises
+    {
+        // Ex 4
+        public static bool AreParenthesesBalanced(string parentheses)
+        {
+            Stack<char> stack = new Stack<char>();
+            foreach (char c in parentheses)
+            {
+                if (c == ')' && stack.Size() == 0) return false;
+
+                if (c == '(') stack.Push(c);
+                else if (c == ')') stack.Pop();
+            }
+            return stack.Size() == 0;
+        }
+
+        public Stack<char> ReadExpression(string expression)
+        {
+            Stack<char> res = new Stack<char>();
+
+            for (int i = expression.Length - 1; i >= 0; i--)
+            {
+                res.Push(expression[i]);
+                i--; // skip whitespaces
+            }
+
+            // expression.Split(' ').ToList().ForEach(x => res.Push(x[0]));
+
+            return res;
+        }
+
+        // Ex 5
+        public int PostfixCalc(string expression)
+        {
+            Stack<char> expr = ReadExpression(expression);
+            Stack<int> result = new Stack<int>();
+
+            while (expr.Size() > 0)
+            {
+                char c = expr.Pop();
+                int a, b;
+
+                switch (c)
+                {
+                    case '+':
+                        result.Push(result.Pop() + result.Pop()); break;
+                    case '-':
+                        a = result.Pop();
+                        b = result.Pop();
+                        result.Push(b - a); break;
+                    case '*':
+                        result.Push(result.Pop() * result.Pop()); break;
+                    case '/':
+                        a = result.Pop();
+                        b = result.Pop();
+                        result.Push(b / a); break;
+                    default:
+                        result.Push(c - '0'); break;
+                }
+            }
+
+            return result.Pop();
+        }
+    }
 
     public class Stack<T>
     {
@@ -14,7 +79,7 @@ namespace AlgorithmsDataStructures
         }
 
         public int Size()
-        {	  
+        {
             return Elements.Count;
         }
 
@@ -35,6 +100,29 @@ namespace AlgorithmsDataStructures
         {
             if (Elements.Count == 0) return default; // null, если стек пустой
             return Elements.Last.Value;
+        }
+    }
+
+    // Ex 2
+    public class StackHead<T> : Stack<T>
+    {
+        public new T Pop()
+        {
+            if (Elements.Count == 0) return default;
+            T val = Elements.First.Value;
+            Elements.RemoveLast();
+            return val;
+        }
+
+        public new void Push(T val)
+        {
+            Elements.AddFirst(val);
+        }
+
+        public new T Peek()
+        {
+            if (Elements.Count == 0) return default; // null, если стек пустой
+            return Elements.First.Value;
         }
     }
 }
