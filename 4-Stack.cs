@@ -41,27 +41,32 @@ namespace AlgorithmsDataStructures
             Stack<char> expr = ReadExpression(expression);
             Stack<int> result = new Stack<int>();
 
+            char c;
+            int a, b;
+
             while (expr.Size() > 0)
             {
-                char c = expr.Pop();
-                int a, b;
+                c = expr.Pop();
+
+                if ('0' <= c && c <= '9')
+                {
+                    result.Push(c - '0');
+                    continue;
+                }
+
+                a = result.Pop();
+                b = result.Pop();
 
                 switch (c)
                 {
                     case '+':
-                        result.Push(result.Pop() + result.Pop()); break;
+                        result.Push(a + b); break;
                     case '-':
-                        a = result.Pop();
-                        b = result.Pop();
                         result.Push(b - a); break;
                     case '*':
-                        result.Push(result.Pop() * result.Pop()); break;
+                        result.Push(a * b); break;
                     case '/':
-                        a = result.Pop();
-                        b = result.Pop();
                         result.Push(b / a); break;
-                    default:
-                        result.Push(c - '0'); break;
                 }
             }
 
