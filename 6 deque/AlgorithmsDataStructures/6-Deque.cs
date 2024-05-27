@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures
 {
-    public class Exercises
+    public static class Exercises
     {
         public static bool IsPalindrome(string str)
         {
@@ -38,6 +38,7 @@ namespace AlgorithmsDataStructures
 
         public void AddFront(T item)
         {
+            // add to head
             MyNode<T> nodeToInsert = new MyNode<T>(item)
             {
                 next = _head,
@@ -51,6 +52,7 @@ namespace AlgorithmsDataStructures
 
         public void AddTail(T item)
         {
+            // add to tail
             MyNode<T> nodeToAdd = new MyNode<T>(item);
             if (_head == null)
             {
@@ -101,4 +103,3 @@ namespace AlgorithmsDataStructures
         public MyNode(T _value) { value = _value; }
     }
 }
-
