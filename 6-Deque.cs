@@ -101,3 +101,4 @@ namespace AlgorithmsDataStructures
         public MyNode(T _value) { value = _value; }
     }
 }
+
