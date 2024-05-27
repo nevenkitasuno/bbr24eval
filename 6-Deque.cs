@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures
@@ -67,7 +67,7 @@ namespace AlgorithmsDataStructures
             _count++;
         }
 
-        public T RemoveTail()
+        public T RemoveFront()
         {
             if (_head == null) return default;
 
@@ -79,7 +79,7 @@ namespace AlgorithmsDataStructures
             return res;
         }
 
-        public T RemoveFront()
+        public T RemoveTail()
         {
             if (_head == null) return default;
 
