@@ -6,7 +6,7 @@ namespace AlgorithmsDataStructures.Tests
     public class RemoveTests
     {
         [Fact]
-        public void TestRemoveFront() {
+        public void TestRemoveBoth() {
 
             // Arrange
             Deque<int> deque = new Deque<int>();
@@ -35,7 +35,7 @@ namespace AlgorithmsDataStructures.Tests
         }
 
         [Fact]
-        public void TestRemoveFrontWithInitialList() {
+        public void TestRemoveBothWithInitialList() {
             Deque<int> deque = new Deque<int>(new List<int> { 1, 2, 3, 4, 5 });
             Assert.Equal(5, deque.Size());
             Assert.Equal(1, deque.RemoveFront());
