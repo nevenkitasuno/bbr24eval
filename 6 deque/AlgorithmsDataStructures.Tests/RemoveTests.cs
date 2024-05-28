@@ -64,6 +64,54 @@ namespace AlgorithmsDataStructures.Tests
         }
 
         [Fact]
+        public void TestRemoveBoth10k()
+        {
+            // Arrange
+            Deque<char> deque = new Deque<char>();
+            int i;
+
+            for (i = 0; i < 10000; i++) deque.AddFront('b');
+            Assert.Equal(10000, deque.Size());
+
+            // Act
+            for (i = 0; i < 5000; i++) deque.RemoveFront();
+            Assert.Equal(5000, deque.Size());
+            Assert.Equal('b', deque.RemoveTail());
+            Assert.Equal(4999, deque.Size());
+            Assert.Equal('b', deque.RemoveTail());
+            Assert.Equal(4998, deque.Size());
+            for (i = 0; i < 4998; i++) deque.RemoveTail();
+
+            // Assert
+            Assert.Equal(default, deque.RemoveTail());
+            Assert.Equal(0, deque.Size());
+        }
+
+        [Fact]
+        public void TestRemoveBoth10k_CreatedWithAddTail()
+        {
+            // Arrange
+            Deque<char> deque = new Deque<char>();
+            int i;
+
+            for (i = 0; i < 10000; i++) deque.AddTail('b');
+            Assert.Equal(10000, deque.Size());
+
+            // Act
+            for (i = 0; i < 5000; i++) deque.RemoveFront();
+            Assert.Equal(5000, deque.Size());
+            Assert.Equal('b', deque.RemoveTail());
+            Assert.Equal(4999, deque.Size());
+            Assert.Equal('b', deque.RemoveTail());
+            Assert.Equal(4998, deque.Size());
+            for (i = 0; i < 4998; i++) deque.RemoveTail();
+
+            // Assert
+            Assert.Equal(default, deque.RemoveTail());
+            Assert.Equal(0, deque.Size());
+        }
+
+        [Fact]
         public void TestRemoveBothWithInitialList() {
             Deque<int> deque = new Deque<int>(new List<int> { 1, 2, 3, 4, 5 });
             Assert.Equal(5, deque.Size());

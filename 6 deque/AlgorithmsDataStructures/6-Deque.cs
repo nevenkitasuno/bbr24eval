@@ -39,14 +39,19 @@ namespace AlgorithmsDataStructures
         public void AddFront(T item)
         {
             // add to head
-            MyNode<T> nodeToInsert = new MyNode<T>(item)
+            MyNode<T> nodeToAdd = new MyNode<T>(item);
+            if (_head == null)
             {
-                next = _head,
-                prev = null
-            };
-            _head = nodeToInsert;
-            if (_head.next == null)
-                _tail = _head;
+                _tail = nodeToAdd;
+                _tail.next = null;
+                _tail.prev = null;
+            }
+            else
+            {
+                _head.prev = nodeToAdd;
+                nodeToAdd.next = _head;
+            }
+            _head = nodeToAdd;
             _count++;
         }
 
@@ -74,10 +79,19 @@ namespace AlgorithmsDataStructures
             if (_head == null) return default;
 
             T res = _head.value;
-            if (_head.next == null) _tail = null;
-            _head = _head.next;
-            if (_head != null) _head.prev = null;
             _count--;
+
+            if (_head.next == null)
+            {
+                _head = null;
+                _tail = null;
+            }
+            else
+            {
+                _head = _head.next;
+                _head.prev = null;
+            }
+
             return res;
         }
 
@@ -86,10 +100,19 @@ namespace AlgorithmsDataStructures
             if (_head == null) return default;
 
             T res = _tail.value;
-            _tail = _tail.prev;
-            if (_tail == null) _head = null;
-            else _tail.next = null;
             _count--;
+
+            if (_tail.prev == null)
+            {
+                _head = null;
+                _tail = null;
+            }
+            else
+            {
+                _tail = _tail.prev;
+                _tail.next = null;
+            }
+
             return res;
         }
 
@@ -103,3 +126,4 @@ namespace AlgorithmsDataStructures
         public MyNode(T _value) { value = _value; }
     }
 }
+

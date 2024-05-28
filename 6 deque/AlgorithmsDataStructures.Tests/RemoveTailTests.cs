@@ -50,5 +50,26 @@ namespace AlgorithmsDataStructures
             Assert.Equal(0, deque.RemoveTail());
             Assert.Equal(0, deque.Size());
         }
+
+        [Fact]
+        public void RemoveTail_AfterRemoveFront()
+        {
+            var bigList = from number in Enumerable.Range(0, 100) select number;
+            var deque = new Deque<int>(bigList);
+            
+            Assert.Equal(bigList.Count(), deque.Size());
+            Assert.Equal(100, deque.Size());
+
+            deque.RemoveFront();
+            deque.RemoveFront();
+
+            for (int i = 97; i >= 0; i--)
+            {
+                Assert.Equal(i + 2, deque.RemoveTail());
+                Assert.Equal(i, deque.Size());
+            }
+            Assert.Equal(0, deque.Size());
+            Assert.Equal(0, deque.RemoveTail());
+        }
     }
 }
