@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace AlgorithmsDataStructures
@@ -102,6 +102,82 @@ namespace AlgorithmsDataStructures
 
             return false;
         }
+
+        /*
+        public void RemoveAll(int _value)
+        {
+            // remove all nodes with given value
+
+            if(head == null) return;
+            
+            Node prev = head;
+
+            Node node = head.next;
+
+            while (node != null)
+            {
+                if (head.value == _value)
+                {
+                    head = head.next;
+                }
+                else
+                {
+                    if (node.value == _value)
+                    {
+                        prev.next = prev.next.next;
+                        node = prev.next;
+                    }
+                    else
+                    {
+                        prev = node;
+                        node = node.next;
+                    }
+                }
+            }
+            if (head.next == null) tail = null;
+            else tail = prev;
+        }
+        */
+
+        /*
+        public void RemoveAll(int _value)
+        {
+            // remove all nodes with given value
+
+            if (head == null)
+                return;
+
+            while (head.value == _value)
+            {
+                head = head.next;
+            }
+
+            if(head == null)
+            {
+                tail = null;
+                return;
+            }
+            
+            Node prev = head;
+            Node node = head.next;
+
+            while (node != null)
+            {
+                if (node.value == _value)
+                {
+                    prev.next = node.next;
+                    node = node.next;
+                }
+                else
+                {
+                    prev = prev.next;
+                    node = prev.next.next;
+                }
+            }
+            if (head.next == null) tail = null;
+            else tail = node;
+        }
+        */
 
         public void RemoveAll(int _value)
         {
