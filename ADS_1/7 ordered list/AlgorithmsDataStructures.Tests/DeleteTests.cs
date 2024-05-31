@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using AlgorithmsDataStructures;
 using Xunit;
 
-namespace AlgorithmsDataStructuresTests {
+namespace AlgorithmsDataStructures.Tests {
     public class DeleteTests {
         [Fact]
         public void Delete_ExistingValue_RemovesValue()

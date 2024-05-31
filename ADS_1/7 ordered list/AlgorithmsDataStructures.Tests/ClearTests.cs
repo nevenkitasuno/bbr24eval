@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using AlgorithmsDataStructures;
 using Xunit;
 
-namespace AlgorithmsDataStructuresTests {
+namespace AlgorithmsDataStructures.Tests {
     public class ClearTests {
         [Fact]
         public void Clear_WithTrueAscending_RemovesAllValuesAtAscendingOrder()
