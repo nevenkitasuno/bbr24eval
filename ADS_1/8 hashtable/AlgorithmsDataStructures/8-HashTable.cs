@@ -27,7 +27,7 @@ namespace AlgorithmsDataStructures
     }
     
     public int SeekSlot(string value) => InternalSeekSlot(value,
-      (slot, val) => slot == null || string.Compare(slot, value) == 0);
+      (slot, val) => slot == null || string.Compare(slot, val) == 0);
 
     public int Put(string value)
     {
