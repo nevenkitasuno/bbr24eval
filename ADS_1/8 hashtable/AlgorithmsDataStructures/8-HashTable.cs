@@ -42,11 +42,11 @@ namespace AlgorithmsDataStructures
 
     private int InternalSeekSlot(string value, Func<string, string, bool> condition)
     {
-      int h = HashFun(value), loop_step, possible_slot_in_bounds;
+      int h = HashFun(value), offset, possible_slot_in_bounds;
 
-      for (loop_step = 0; loop_step < step; loop_step++)
+      for (offset = 0; offset < step; offset++)
       {
-        h += loop_step; // ensure iterating through all slots
+        h += offset; // ensure iterating through all slots
         for (int iteration = h; iteration - h < size; iteration += step)
         {
           possible_slot_in_bounds = iteration % size;
