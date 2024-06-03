@@ -23,26 +23,11 @@ namespace AlgorithmsDataStructures
       // random a [1, p-1], b [0, p-1], simple p - from universal family
       int x = 0, a = 2, b = 3, p = 17;
       foreach (char ch in value) x += (int)ch;
-      return ((a * x + b) % p) % size;
+      return (a * x + b) % p % size;
     }
-
-    public int SeekSlot(string value)
-    {
-      int h = HashFun(value);
-
-      int possible_slot = h;
-
-      while (possible_slot - h < size)
-      {
-        if (slots[possible_slot % size] == null
-          || slots[possible_slot % size] == value)
-          return possible_slot;
-
-        possible_slot += step;
-      }
-
-      return -1; // when slot not found
-    }
+    
+    public int SeekSlot(string value) => InternalSeekSlot(value,
+      (slot, val) => slot == null || string.Compare(slot, value) == 0);
 
     public int Put(string value)
     {
@@ -52,16 +37,23 @@ namespace AlgorithmsDataStructures
       return idx;
     }
 
-    public int Find(string value)
+    public int Find(string value) => InternalSeekSlot(value,
+      (slot, val) => string.Compare(slot, val) == 0);
+
+    private int InternalSeekSlot(string value, Func<string, string, bool> condition)
     {
-      int h = HashFun(value);
-      int possible_slot = h;
-      while (possible_slot - h < size)
+      int h = HashFun(value), loop_step, possible_slot_in_bounds;
+
+      for (loop_step = 0; loop_step < step; loop_step++)
       {
-        if (slots[possible_slot % size] == value) return possible_slot;
-        possible_slot += step;
+        h += loop_step; // ensure iterating through all slots
+        for (int iteration = h; iteration - h < size; iteration += step)
+        {
+          possible_slot_in_bounds = iteration % size;
+          if (condition(slots[possible_slot_in_bounds], value)) return possible_slot_in_bounds;
+        }
       }
-      return -1;
+      return -1; // when slot not found
     }
   }
 
