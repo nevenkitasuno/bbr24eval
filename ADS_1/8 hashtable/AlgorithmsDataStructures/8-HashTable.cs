@@ -25,7 +25,7 @@ namespace AlgorithmsDataStructures
       foreach (char ch in value) x += (int)ch;
       return (a * x + b) % p % size;
     }
-    
+
     public int SeekSlot(string value) => InternalSeekSlot(value,
       (slot, val) => slot == null || string.Compare(slot, val) == 0);
 
