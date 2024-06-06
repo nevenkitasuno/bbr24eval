@@ -225,7 +225,7 @@ namespace AlgorithmsDataStructures.Tests
             Assert.Equal(20000, union.Size());
 
             var difference = set1.Difference(set2);
-            Assert.Equal(10000, difference.Size());
+            Assert.Equal(5000, difference.Size());
         }
     }
 }

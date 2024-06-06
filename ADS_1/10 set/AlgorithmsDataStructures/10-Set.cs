@@ -59,10 +59,17 @@ namespace AlgorithmsDataStructures
         public PowerSet<T> Difference(PowerSet<T> set2)
         {
             PowerSet<T> result = new PowerSet<T>();
-            foreach (T value in this) if (!set2.Get(value)) result.Put(value);
-            foreach (T value in set2) if (!Get(value)) result.Put(value);
+            foreach (T value in this) result.Put(value);
+            foreach (T value in set2) result.Remove(value);
             return result;
         }
+        // public PowerSet<T> Difference(PowerSet<T> set2)
+        // {
+        //     PowerSet<T> result = new PowerSet<T>();
+        //     foreach (T value in this) if (!set2.Get(value)) result.Put(value);
+        //     foreach (T value in set2) if (!Get(value)) result.Put(value);
+        //     return result;
+        // }
 
         public bool IsSubset(PowerSet<T> set2)
         {
