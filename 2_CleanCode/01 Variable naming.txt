@@ -1,0 +1,35 @@
+item - queriedItem
+// Элемент запрошенный из БД для GET-запроса
+
+item - itemToBeCreated
+// Элемент создаваемый для POST-запроса
+
+item - itemToBeDeleted
+// Элемент запрашиваемый для DELETE-запроса
+
+sides - triangleSides
+// Массив со сторонами треугольника
+
+shortestSquaresSum - sumOfShortestSidesSquares
+// Сумма квадратов кратчайших сторон
+
+longestSquare - longestSideSquare
+// Квадрат самой длинной стороны
+
+result - intersection
+// Пересечение, результат работы функции нахождения пересечения
+
+hc - hashCode
+// Хэш-код
+
+appId - applicationId
+// ID заявки
+
+ev - event
+// событие
+
+ddoc - documentCreationDate
+// дата создания документа
+
+sql - sqlQuery
+// SQL запрос
