@@ -1,0 +1,52 @@
+6.1
+
+1) dat - contractSigningDate
+// Дата подписания договора
+
+2) Document.DocDate - Document.CreationDate
+// Дата создания документа
+
+3) dateReg - permissionRegistrationDate
+// Дата регистрации разрешения в системе
+
+4) objectSquare - objectAreaSquareMeters
+// Площадь помещения в квадратных метрах
+
+5) UptDate - DBUpdateDate
+// Дата обновления данных в БД
+
+6.2
+
+1) itemsRepository
+// Паттерн "Репозиторий"
+
+2) createItemDTO
+// DTO
+
+3) bagOfWords
+// Вектор присутствия (или количества) слов в тексте
+
+4) builder
+// Паттерн "Строитель"
+
+6.3
+
+1) emptySlotInBounds
+// Пустой слот в границах массива
+
+2) reg - registration
+
+3) reg - reglament
+
+6.4
+
+1) permissionRegistrationDate - permisRegistrDate
+
+2) DateContactRegSpecified - HasDateContactReg
+// Поле объекта, указывающее имеет ли другой объект нужное свойство
+
+3) wc - WebClient
+
+4) depr - Department
+
+5) Dal - DataAccessLayer
