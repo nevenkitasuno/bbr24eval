@@ -1,0 +1,33 @@
+7.1
+
+1) completed - isCompleted
+2) withChildren - hasChildren
+3) withEditRights - canEdit
+4) fetchData - shouldFetchData
+5) started - hasStarted
+
+7.2
+
+bool isInArray = Get(value);
+if (!isInArray) return false;
+
+bool isKey = InternalFind(key) != -1;
+
+7.3
+
+// Возможно тут нагляднее будет если на foreach заменить:
+
+for (int i = 0; i < inputStr.Length; i++)
+    code = (code * multiplier + (int)inputStr[i]) % filter_len;
+
+foreach(char ch in inputStr)
+    code = (code * multiplier + (int)ch) % filter_len;
+
+7.4
+
+Begin - End и Head - Tail для структур данных основанных на LinkedList
+
+7.5
+
+// самописный map
+tmp = lst; - listToApplyFunction = inputList;
