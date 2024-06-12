@@ -1,0 +1,205 @@
+1) hc - hashCode
+
+public int HashFun(T value)
+{
+    int hc = value.GetHashCode();
+    if (hc < 0) hc *= -1;
+    return hc % size;
+}
+
+//
+
+public int HashFun(T value)
+{
+    int hashCode = value.GetHashCode();
+    if (hashCode < 0) hashCode *= -1;
+    return hashCode % size;
+}
+
+2) item - queriedItem
+
+[HttpGet]
+public async Task<IEnumerable<ItemDto>> GetAsync()
+{
+    var queriedItems = (await itemsRepository.GetAllAsync())
+                .Select(item => item.AsDto());
+    return queriedItems;
+}
+
+3)
+
+[HttpGet("{id}")]
+public async Task<ActionResult<ItemDto>> GetByIdAsync(Guid id)
+{
+    var queriedItem = await itemsRepository.GetAsync(id);
+    if (queriedItem  == null)
+        return NotFound();
+    return queriedItem.AsDto();
+}
+
+//
+
+[HttpGet("{id}")]
+public async Task<ActionResult<ItemDto>> GetByIdAsync(Guid id)
+{
+    var item = await itemsRepository.GetAsync(id);
+    if (item  == null)
+        return NotFound();
+    return item.AsDto();
+}
+
+4) item - itemToBeDeleted
+
+[HttpDelete("{id}")]
+public async Task<IActionResult> DeleteAsync(Guid id)
+{
+    var item = await itemsRepository.GetAsync(id);
+    if (item == null) return NotFound();
+    await itemsRepository.RemoveAsync(item.Id)
+    return NoContent();
+}
+
+//
+
+[HttpDelete("{id}")]
+public async Task<IActionResult> DeleteAsync(Guid id)
+{
+    var itemToBeDeleted = await itemsRepository.GetAsync(id);
+    if (itemToBeDeleted == null) return NotFound();
+    await itemsRepository.RemoveAsync(itemToBeDeleted.Id)
+    return NoContent();
+}
+
+5) sides - triangleSides
+
+6) shortestSquaresSum - shortestSidesSquaresSum
+
+7) longestSquare - longestSideSquare
+
+public class TriangleTypeSpecifySort : ITriangleTypeSpecifier
+{
+    public TriangleType Specify(float a, float b, float c) {
+        double[] sides = new double[3]{a, b, c};
+
+        Array.Sort(sides);
+
+        if (sides[0] + sides[1] < sides[2] ||
+            sides[0] <= 0 || sides[0] <= 0 || sides[0] <= 0)
+            return TriangleType.Impossible;
+
+        var shortestSquaresSum = sides[0] * sides[0] + sides[1] * sides[1];
+        var longestSquare = sides[2] * sides[2];
+
+        if (longestSquare > shortestSquaresSum + Options.Epsilon)
+            return TriangleType.Obtuse;
+        else if (longestSquare < shortestSquaresSum - Options.Epsilon)
+            return TriangleType.Acute;
+        else
+            return TriangleType.Right;
+    }
+}
+
+//
+
+public class TriangleTypeSpecifySort : ITriangleTypeSpecifier
+{
+    public TriangleType Specify(float a, float b, float c) {
+        double[] triangleSides = new double[3]{a, b, c};
+
+        Array.Sort(triangleSides);
+
+        if (triangleSides[0] + triangleSides[1] < triangleSides[2] ||
+            triangleSides[0] <= 0 || triangleSides[0] <= 0 || triangleSides[0] <= 0)
+            return TriangleType.Impossible;
+
+        var shortestSidesSquaresSum = triangleSides[0] * triangleSides[0] + triangleSides[1] * triangleSides[1];
+        var longestSideSquare = triangleSides[2] * triangleSides[2];
+
+        if (longestSideSquare > shortestSidesSquaresSum + Options.Epsilon)
+            return TriangleType.Obtuse;
+        else if (longestSideSquare < shortestSidesSquaresSum - Options.Epsilon)
+            return TriangleType.Acute;
+        else
+            return TriangleType.Right;
+    }
+}
+
+8) result - intersection
+
+public PowerSet<T> Intersection(PowerSet<T> set2)
+{
+    PowerSet<T> result = new PowerSet<T>();
+    foreach (T value in set2) if (Get(value)) result.Put(value);
+    return result;
+}
+
+//
+
+public PowerSet<T> Intersection(PowerSet<T> set2)
+{
+    PowerSet<T> intersection = new PowerSet<T>();
+    foreach (T value in set2) if (Get(value)) intersection.Put(value);
+    return intersection;
+}
+
+9) result - union
+
+public PowerSet<T> Union(PowerSet<T> set2)
+{
+    PowerSet<T> result = new PowerSet<T>();
+    foreach (T value in this) result.Put(value);
+    foreach (T value in set2) result.Put(value);
+    return result;
+}
+
+//
+
+public PowerSet<T> Union(PowerSet<T> set2)
+{
+    PowerSet<T> union = new PowerSet<T>();
+    foreach (T value in this) union.Put(value);
+    foreach (T value in set2) union.Put(value);
+    return union;
+}
+
+10) result - difference
+
+public PowerSet<T> Difference(PowerSet<T> set2)
+{
+    PowerSet<T> result = new PowerSet<T>();
+    foreach (T value in this) result.Put(value);
+    foreach (T value in set2) result.Remove(value);
+    return result;
+}
+
+//
+
+public PowerSet<T> Difference(PowerSet<T> set2)
+{
+    PowerSet<T> difference = new PowerSet<T>();
+    foreach (T value in this) difference.Put(value);
+    foreach (T value in set2) difference.Remove(value);
+    return difference;
+}
+
+11) Epsilon - DegreeOfInaccuracy
+
+public static class Options
+{
+    public const double Epsilon = 0.000001; // degree of inaccuracy to check floating point numbers equality
+}
+
+//
+
+public static class Options
+{
+    public const double DegreeOfInaccuracy = 0.000001; // used to check floating point numbers equality
+}
+
+12) type - lineType
+
+type = GetLineType(line)
+
+//
+
+lineType = GetLineType(line)
