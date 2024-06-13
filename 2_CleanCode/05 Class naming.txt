@@ -1,0 +1,17 @@
+3.1
+
+1) AppsCreate - AppsCreator
+2) ReadHost - HostReader
+3) KafkaManager - KafkaService
+4) RMQPublish - RMQPublisher
+5) SendHost - HostSender
+
+3.2
+
+1) editDescriptionRequest, ChangeResponseRequest - editDescriptionRequest, EditResponseRequest
+2) AddAnnotation, AppendDocumentSource - AddAnnotation, AddDocumentSource
+3) DeleteAnnotation, RemoveDocumentAnnotation - RemoveAnnotation, RemoveDocumentAnnotation
+4) RemoveDocumentResponse, DeleteDocumentResponse - RemoveDocumentResponse
+5) RetrieveDocumentAnnotation, GetDocumentAnnotation - GetDocumentAnnotation
+6) MakeDocument, CreateRequest - MakeDocument, MakeRequest
+7) ChangeDocument, RemoveFile - ChangeDocument, RemoveDocument
