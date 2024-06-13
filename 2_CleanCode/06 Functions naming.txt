@@ -1,0 +1,35 @@
+1) PostfixCalc - CalcPostfixExpression
+// Глагол в начало + сущность над которой производится операция
+
+2) IdxOfLeastUsed - GetIdxOfLeastUsed
+// Добавил глагол
+
+3) WonPoint - AddScore
+// Добавить очко игроку
+
+4) SetP1Score(int number) - AddScoreToPlayer(int scoresToAdd, int player)
+// Метод не устанавливает а добавляет очки, и стоит избавиться от отдельных методов для каждого игрока с одинаковой функциональностью
+
+5) WriteBoard - PrintBoard
+// На деле печатает игровое поле
+
+6) NotVacantError - AlertNotVacantError
+// Глагол - сообщить об ошибке
+
+7) NotVacant - IsNotVacant
+// Префикс для предиката
+
+8) DisplayLoss - PrintLoss
+// Единообразие названий не отличающихся принципиально методов
+
+9) Wrap - WrapWord
+// Добавил контекст - сущность над которой производится операция
+
+10) GetWrappedwordWithoutBlankSpaces - GetWrappedWord().Trim()
+// Декомпозиция
+
+11) IsWhitespaceOrNewLine - IsWhiteSpace, IsNewLine
+// Декомпозиция
+
+12) Chance - EstimateChance
+// Глагол
