@@ -1,0 +1,17 @@
+3.1
+
+1) public static Triangle FromInt(int a, int b, int c) => new Triangle(a, b, c);
+
+2) public static Triangle FromIntList(List<int> sides)
+{
+    if (sides.Count != 3) throw new ArgumentException;
+    return new Triangle(sides[0], sides[1], sides[2]);
+}
+
+3) public static FromMongoDB(IMongoDatabase database) =>
+        new ItemsRepository(database.GetCollection<Item>(collectionName));
+
+3.2
+
+IItemsRepository - ItemsRepository
+ITriangleTypeSpecifier - TriangleTypeSpecifier
