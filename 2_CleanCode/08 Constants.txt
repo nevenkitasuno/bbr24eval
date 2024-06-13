@@ -7,7 +7,7 @@ public PowerSet() : base(20000)
 
 //
 
-const int SET_SIZE = 20000;
+file const int SET_SIZE = 20000;
 
 public PowerSet() : base(SET_SIZE)
 {
@@ -16,7 +16,7 @@ public PowerSet() : base(SET_SIZE)
 
 2, 3) Ввёл константу:
 
-const int MIN_CAPACITY = 16;
+file const int MIN_CAPACITY = 16;
 
 public DynArray()
 {
@@ -39,8 +39,8 @@ public void MakeArray(int new_capacity)
 
 4, 5) Ввёл константы. Теперь, например, эти параметры проще будет менять для тестов производительности
 
-const float DECREACE_CAPACITY_BY = 1.5;
-const float MAX_UNUSED_CAPACITY_MULTIPLIER = 2;
+file const float DECREACE_CAPACITY_BY = 1.5;
+file const float MAX_UNUSED_CAPACITY_MULTIPLIER = 2;
 
 public void Remove(int index)
 {
@@ -63,9 +63,9 @@ public void Remove(int index)
 
 6) Ввёл константы, можно уменьшить комментарии:
 
-const int LESS = -1;
-const int EQUAL = 0;
-const int GREATER = 1;
+file const int LESS = -1;
+file const int EQUAL = 0;
+file const int GREATER = 1;
 
 public int Compare(T v1, T v2)
 {
@@ -98,4 +98,33 @@ public int Compare(T v1, T v2)
     return EQUAL;
 }
 
-7)
+7) Ввёл константу
+
+file const int FAIL = -1;
+
+public int Put(string value)
+{
+    int idx = SeekSlot(value);
+    if (idx == FAIL) return FAIL;
+    slots[idx] = value;
+    return idx;
+}
+
+8) Заменил переменные на константы
+
+public int HashFun(string key)
+{
+    // random a [1, p-1], b [0, p-1], simple p - from universal family
+    const int A = 2, B = 3, P = 17;
+    int x = 0
+    foreach (char ch in key) x += (int)ch;
+    return (A * x + B) % P % size;
+}
+
+9) Ввёл константу
+
+file const int ARRAY_ITERATION_STEP = 3;
+
+private int InternalSeekSlot(string key, Func<string, string, bool> condition)
+{
+    int h = HashFun(key), step = ARRAY_ITERATION_STEP, offset, possible_slot_in_bounds;
