@@ -137,4 +137,6 @@ file const int MATURITY_AGE = 18;
 
 file const int YEAR_ANALYSIS_STARTED = 2015;
 
-12)
+12) Задал константой количество обработчиков
+
+file const int ANALYZERS_COUNT = 24;
