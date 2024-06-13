@@ -128,3 +128,13 @@ file const int ARRAY_ITERATION_STEP = 3;
 private int InternalSeekSlot(string key, Func<string, string, bool> condition)
 {
     int h = HashFun(key), step = ARRAY_ITERATION_STEP, offset, possible_slot_in_bounds;
+
+10) Заменил число возраста совершеннолетия в коде на константу для гибкости
+
+file const int MATURITY_AGE = 18;
+
+11) Заменил дату в коде на константу для читаемости
+
+file const int YEAR_ANALYSIS_STARTED = 2015;
+
+12)
