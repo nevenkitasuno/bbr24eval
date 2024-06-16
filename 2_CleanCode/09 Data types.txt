@@ -1,0 +1,112 @@
+1)
+
+result.Push(b / a);
+
+-
+
+try
+{
+    result.Push(b / a); break;
+}
+catch (DivideByZeroException) when (a == 0)
+{
+    throw;
+}
+
+// Записал обработку исключения, хотя не знаю как "предупредить появление ошибки деления на 0."
+
+2)
+
+.csproj
+<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+<WarningLevel>9</WarningLevel>
+
+// Включение предупреждений компилятора по максимуму (и замена предупреждений на ошибки)
+
+3)
+
+Console.WriteLine("Type in lengths of triangle sides: ");
+
+-
+
+Console.WriteLine(Resources.Program.TriangleSidezPrompt);
+
+// Локализация текстовых сообщений
+
+4)
+
+if (longestSquare > shortestSquaresSum)
+    return TriangleType.Obtuse;
+
+-
+
+if (longestSquare > shortestSquaresSum + Options.Epsilon)
+    return TriangleType.Obtuse;
+
+// Сравнение вещественных чисел с погрешностью
+
+https://github.com/comwrg/EquationCalculator
+
+5)
+
+return -constant / coefficientOfX;
+
+-
+
+try
+{
+    result = -constant / coefficientOfX;
+}
+catch (DivideByZeroException) when (coefficientOfX == 0)
+{
+    throw;
+}
+
+return result;
+
+// Возможно деление на 0
+
+6)
+
+i = a / b;
+
+-
+
+try
+{
+    i = a / b;
+}
+catch (DivideByZeroException) when (b == 0)
+{
+    throw;
+}
+
+// Возможно деление на 0
+
+7) В методе Simplification стоит рассмотреть замену i на вещественный тип т.к. сейчас там целочисленное деление. Но для сохранения результата там строка, так что с наскока не получится.
+
+8)
+
+i = a / b;
+
+-
+
+i = Math.Floor((double)a / b);
+
+//
+
+https://marcelkliemannel.com/articles/2021/dont-confuse-integer-division-with-floor-division/
+
+Использование явно деления с округлением вниз вместо целочисленного
+
+9)
+//
+
+10)
+//
+
+11)
+//
+
+12)
+//
