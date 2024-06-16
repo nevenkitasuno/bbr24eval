@@ -45,7 +45,7 @@ if (longestSquare > shortestSquaresSum + Options.Epsilon)
 
 // Сравнение вещественных чисел с погрешностью
 
-https://github.com/comwrg/EquationCalculator
+(5 - 8) https://github.com/comwrg/EquationCalculator
 
 5)
 
@@ -99,14 +99,28 @@ https://marcelkliemannel.com/articles/2021/dont-confuse-integer-division-with-fl
 
 Использование явно деления с округлением вниз вместо целочисленного
 
-9)
-//
+9, 10)
 
-10)
-//
+https://github.com/gebond/mathematical-engine
+
+Quaternion res = (1.0 / 2.0) * (x % omeg);
+...
+return - 1.0 + psi / (0.5 * (lambda % omegaopt));
+
+// Возможно деление на 0: обернуть в try catch по аналогии с примерами выше.
 
 11)
-//
+
+https://github.com/Turysaz/TuryUtilCs
+
+ret[col] = detAi / detA;
+
+// Возможно деление на 0: обернуть в try catch по аналогии с примерами выше.
 
 12)
-//
+
+https://github.com/rudollee/MathEx
+
+di = 1 / di;
+
+// Возможно деление на 0: обернуть в try catch по аналогии с примерами выше.
