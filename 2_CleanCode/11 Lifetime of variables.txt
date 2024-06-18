@@ -1,0 +1,235 @@
+https://github.com/OpenRA/OpenRA
+
+1 - 8) MiniYaml.cs
+
+foreach (var ll in lines)
+{
+    var line = ll.Span;
+    ++lineNo;
+
+    var keyStart = 0;
+    var level = 0;
+    var spaces = 0;
+    var textStart = false;
+
+    ...
+
+    if (line.Length > 0)
+    {
+        int keyStart = 0;
+        var currChar = line[keyStart];
+
+        while (!(currChar == '\n' || ...
+
+-
+
+foreach (var ll in lines)
+{
+    var line = ll.Span;
+    ++lineNo;
+
+    ...
+
+    if (line.Length > 0)
+    {
+        int keyStart = 0;
+        var currChar = line[keyStart];
+
+        int level = 0;
+        int spaces = 0;
+        bool textStart = false;
+
+        while (!(currChar == '\n' || ...
+
+// 1 Переменная keyStart: Уменьшение области видимости
+// 2 Переменная keyStart: Уменьшение окна до обращения к переменной
+// 3 Переменная level: Уменьшение области видимости
+// 4 Переменная level: Уменьшение окна до обращения к переменной
+// 5 Переменная spaces: Уменьшение области видимости
+// 6 Переменная spaces: Уменьшение окна до обращения к переменной
+// 7 Переменная textStart: Уменьшение области видимости
+// 8 Переменная textStart: Уменьшение окна до обращения к переменной
+
+9-10) Game.cs
+
+public static void RestartGame()
+{
+    var replay = OrderManager.Connection as ReplayConnection;
+    var replayName = replay?.Filename;
+    var lobbyInfo = OrderManager.LobbyInfo;
+
+    // Reseed the RNG so this isn't an exact repeat of the last game
+    lobbyInfo.GlobalSettings.RandomSeed = CosmeticRandom.Next();
+
+    // Note: the map may have been changed on disk outside the game, changing its UID.
+    // Use the updated UID if we have tracked the update instead of failing.
+    lobbyInfo.GlobalSettings.Map = ModData.MapCache.GetUpdatedMap(lobbyInfo.GlobalSettings.Map);
+    if (lobbyInfo.GlobalSettings.Map == null)
+    {
+        Disconnect();
+        Ui.ResetAll();
+        LoadShellMap();
+        return;
+    }
+
+    var orders = new[]
+    {
+            Order.Command($"sync_lobby {lobbyInfo.Serialize()}"),
+            Order.Command("startgame")
+    };
+
+    // Disconnect from the current game
+    Disconnect();
+    Ui.ResetAll();
+
+    // Restart the game with the same replay/mission
+    if (replay != null)
+        JoinReplay(replayName);
+    else
+        CreateAndStartLocalServer(lobbyInfo.GlobalSettings.Map, orders);
+}
+
+-
+
+public static void RestartGame()
+{
+    Session lobbyInfo = OrderManager.LobbyInfo;
+
+    // Reseed the RNG so this isn't an exact repeat of the last game
+    lobbyInfo.GlobalSettings.RandomSeed = CosmeticRandom.Next();
+
+    // Note: the map may have been changed on disk outside the game, changing its UID.
+    // Use the updated UID if we have tracked the update instead of failing.
+    lobbyInfo.GlobalSettings.Map = ModData.MapCache.GetUpdatedMap(lobbyInfo.GlobalSettings.Map);
+    if (lobbyInfo.GlobalSettings.Map == null)
+    {
+        Disconnect();
+        Ui.ResetAll();
+        LoadShellMap();
+        return;
+    }
+
+    var orders = new[]
+    {
+            Order.Command($"sync_lobby {lobbyInfo.Serialize()}"),
+            Order.Command("startgame")
+    };
+
+    // Disconnect from the current game
+    Disconnect();
+    Ui.ResetAll();
+
+    // Restart the game with the same replay/mission
+    ReplayConnection replay = OrderManager.Connection as ReplayConnection;
+    string replayName = replay?.Filename;
+    if (replay != null)
+        JoinReplay(replayName);
+    else
+        CreateAndStartLocalServer(lobbyInfo.GlobalSettings.Map, orders);
+}
+
+// 9  Переменная replay: Уменьшение окна до обращения к переменной
+// 10 Переменная replayName: Уменьшение окна до обращения к переменной
+
+11) Actor.cs
+
+var init = new ActorInitializer(this, initDict);
+
+readOnlyConditionCache = new ReadOnlyDictionary<string, int>(conditionCache);
+
+World = world;
+ActorID = world.NextAID();
+var ownerInit = init.GetOrDefault<OwnerInit>();
+
+-
+
+readOnlyConditionCache = new ReadOnlyDictionary<string, int>(conditionCache);
+
+World = world;
+ActorID = world.NextAID();
+ActorInitializer init = new ActorInitializer(this, initDict);
+var ownerInit = init.GetOrDefault<OwnerInit>();
+
+// 11 Переменная init: Уменьшение окна до обращения к переменной
+
+12) Actor.cs
+
+var wasIdle = IsIdle;
+CurrentActivity = ActivityUtils.RunActivity(this, CurrentActivity);
+
+if (!wasIdle && IsIdle)
+...
+
+-
+
+CurrentActivity = ActivityUtils.RunActivity(this, CurrentActivity);
+
+bool wasIdle = IsIdle;
+if (!wasIdle && IsIdle)
+...
+
+// 12 Переменная wasIdle: Уменьшение окна до обращения к переменной
+
+13) Actor.cs
+
+var oldOwner = Owner;
+var wasInWorld = IsInWorld;
+
+// momentarily remove from world so the ownership queries don't get confused
+if (wasInWorld)
+    World.Remove(this);
+
+Owner = newOwner;
+
+-
+
+bool wasInWorld = IsInWorld;
+
+// momentarily remove from world so the ownership queries don't get confused
+if (wasInWorld)
+    World.Remove(this);
+
+Player oldOwner = Owner;
+Owner = newOwner;
+
+// 13 Переменная oldOwner: Уменьшение окна до обращения к переменной
+
+14-19) Exts.cs
+
+var comparer = Comparer<U>.Default;
+T t;
+U u;
+using (var e = ts.GetEnumerator())
+{
+    ...
+    t = e.Current;
+    u = selector(t);
+    while (e.MoveNext())
+    {
+        ...
+        if (comparer.Compare(nextU, u) * modifier < 0)
+        {
+
+-
+
+using (var e = ts.GetEnumerator())
+{
+    ...
+    T t;
+    U u;
+    t = e.Current;
+    u = selector(t);
+    Comparer<U> comparer = Comparer<U>.Default;
+    while (e.MoveNext())
+    {
+        ...
+        if (comparer.Compare(nextU, u) * modifier < 0)
+        {
+
+// 14 Переменная t: Уменьшение области видимости
+// 15 Переменная t: Уменьшение окна до обращения к переменной
+// (finish)
+// 16 Переменная u: Уменьшение области видимости
+// 17 Переменная u: Уменьшение окна до обращения к переменной
+// 18 Переменная comparer: Уменьшение области видимости
+// 19 Переменная comparer: Уменьшение окна до обращения к переменной
