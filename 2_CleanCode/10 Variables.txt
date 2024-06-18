@@ -1,0 +1,172 @@
+1-5) https://github.com/OpenRA/OpenRA
+
+public static void RestartGame()
+{
+    var replay = OrderManager.Connection as ReplayConnection;
+    var replayName = replay?.Filename;
+    var lobbyInfo = OrderManager.LobbyInfo;
+
+    // Reseed the RNG so this isn't an exact repeat of the last game
+    lobbyInfo.GlobalSettings.RandomSeed = CosmeticRandom.Next();
+
+    // Note: the map may have been changed on disk outside the game, changing its UID.
+    // Use the updated UID if we have tracked the update instead of failing.
+    lobbyInfo.GlobalSettings.Map = ModData.MapCache.GetUpdatedMap(lobbyInfo.GlobalSettings.Map);
+    if (lobbyInfo.GlobalSettings.Map == null)
+    {
+        Disconnect();
+        Ui.ResetAll();
+        LoadShellMap();
+        return;
+    }
+
+    var orders = new[]
+    {
+            Order.Command($"sync_lobby {lobbyInfo.Serialize()}"),
+            Order.Command("startgame")
+    };
+
+    // Disconnect from the current game
+    Disconnect();
+    Ui.ResetAll();
+
+    // Restart the game with the same replay/mission
+    if (replay != null)
+        JoinReplay(replayName);
+    else
+        CreateAndStartLocalServer(lobbyInfo.GlobalSettings.Map, orders);
+}
+
+-
+
+public static void RestartGame()
+{
+    Session lobbyInfo = OrderManager.LobbyInfo;
+
+    // Reseed the RNG so this isn't an exact repeat of the last game
+    lobbyInfo.GlobalSettings.RandomSeed = CosmeticRandom.Next();
+
+    // Note: the map may have been changed on disk outside the game, changing its UID.
+    // Use the updated UID if we have tracked the update instead of failing.
+    lobbyInfo.GlobalSettings.Map = ModData.MapCache.GetUpdatedMap(lobbyInfo.GlobalSettings.Map);
+    if (lobbyInfo.GlobalSettings.Map == null)
+    {
+        Disconnect();
+        Ui.ResetAll();
+        LoadShellMap();
+        return;
+    }
+
+    var orders = new[]
+    {
+            Order.Command($"sync_lobby {lobbyInfo.Serialize()}"),
+            Order.Command("startgame")
+    };
+
+    // Disconnect from the current game
+    Disconnect();
+    Ui.ResetAll();
+
+    // Restart the game with the same replay/mission
+    ReplayConnection replay = OrderManager.Connection as ReplayConnection;
+    string replayName = replay?.Filename;
+    if (replay != null)
+        JoinReplay(replayName);
+    else
+        CreateAndStartLocalServer(lobbyInfo.GlobalSettings.Map, orders);
+}
+
+// 1 Переменная replay: Объявление ближе к использованию
+// 2 Переменная replay: Явное объявление типа
+// 3 Переменная replayName: Объявление ближе к использованию
+// 4 Переменная replayName: Явное объявление типа
+// 5 Переменная lobbyInfo: Явное объявление типа
+
+6-7)
+
+private int InternalSeekSlot(string value, Func<string, string, bool> condition)
+{
+    int h = HashFun(value), offset, possible_slot_in_bounds;
+
+    for (offset = 0; offset < step; offset++)
+    {
+        h += offset; // ensure iterating through all slots
+        for (int iteration = h; iteration - h < size; iteration += step)
+        {
+            possible_slot_in_bounds = iteration % size;
+            if (condition(slots[possible_slot_in_bounds], value)) return possible_slot_in_bounds;
+        }
+    }
+    return -1; // when slot not found
+}
+
+-
+
+private int InternalSeekSlot(string value, Func<string, string, bool> condition)
+{
+    int h = HashFun(value);
+
+    for (int offset = 0; offset < step; offset++)
+    {
+        h += offset; // ensure iterating through all slots
+        for (int iteration = h; iteration - h < size; iteration += step)
+        {
+            int possible_slot_in_bounds = iteration % size;
+            if (condition(slots[possible_slot_in_bounds], value)) return possible_slot_in_bounds;
+        }
+    }
+    return -1; // when slot not found
+}
+
+// 6 Переменная offset: Инициализация в заголовке цикла
+// 7 Переменная possible_slot_in_bounds: Инициализация ближе к использованию
+
+8 - 16) https://github.com/OpenRA/OpenRA | MiniYaml.cs
+
+foreach (var ll in lines)
+{
+    var line = ll.Span;
+    ++lineNo;
+
+    var keyStart = 0;
+    var level = 0;
+    var spaces = 0;
+    var textStart = false;
+
+    ...
+
+    if (line.Length > 0)
+    {
+        int keyStart = 0;
+        var currChar = line[keyStart];
+
+        while (!(currChar == '\n' || ...
+
+-
+
+foreach (var ll in lines)
+{
+    var line = ll.Span;
+    ++lineNo;
+
+    ...
+
+    if (line.Length > 0)
+    {
+        int keyStart = 0;
+        var currChar = line[keyStart];
+
+        int level = 0;
+        int spaces = 0;
+        bool textStart = false;
+
+        while (!(currChar == '\n' || ...
+
+// 8  Переменная keyStart: Инициализация ближе к использованию
+// 9  Переменная keyStart: Явное объявление типа
+// 10 Переменная level: Инициализация ближе к использованию
+// 11 Переменная level: Явное объявление типа
+// 12 Переменная spaces: Инициализация ближе к использованию
+// 13 Переменная spaces: Явное объявление типа
+// 14 Переменная textStart: Инициализация ближе к использованию
+// 15 Переменная textStart: Явное объявление типа
