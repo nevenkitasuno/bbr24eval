@@ -121,7 +121,7 @@ private int InternalSeekSlot(string value, Func<string, string, bool> condition)
 // 6 Переменная offset: Инициализация в заголовке цикла
 // 7 Переменная possible_slot_in_bounds: Инициализация ближе к использованию
 
-8 - 16) https://github.com/OpenRA/OpenRA | MiniYaml.cs
+8 - 15) https://github.com/OpenRA/OpenRA | MiniYaml.cs
 
 foreach (var ll in lines)
 {
