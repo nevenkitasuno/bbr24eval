@@ -28,3 +28,9 @@ foreach(char ch in inputStr)
 5) private static List<Header> InternalReadHeaders(string[] headers)
 
 // Стоит заменить на Stack для последовательной обработки
+
+(finish)
+
+6) double[] sides = new double[3]{a, b, c};
+
+// Стоит создать класс/структуру представляющую треугольник
