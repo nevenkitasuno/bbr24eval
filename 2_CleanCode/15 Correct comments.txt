@@ -1,0 +1,80 @@
+1) 5 - Усиление
+
+// Без вызова Trim в body будут ошибочно добавляться лишние символы
+body = sections[sections.Length - 1].Trim('\x00');
+
+2) 1 - Информативный комментарий
+
+[Fact]
+public void Collision_IterateMoreThanOnceToPut()
+{
+    // this test relies heavily on current implementation. It is normal if it broke if collision mechanism changes
+
+3) 6 - Комментарий TODO
+
+if (index < 0 || index >= count)
+    throw new IndexOutOfRangeException();
+// TODO: upgrade to .net 8+ and change to - ArgumentOutOfRangeException.ThrowIfZero<T>(T, String) and others
+
+4) 1 - Информативный комментарий
+
+// random a [1, p-1], b [0, p-1] - from universal family
+int x = 0, a = 2, b = 3, prime = 17;
+
+5) 1 - Информативный комментарий
+
+for (int i = expression.Length - 1; i >= 0; i--)
+{
+    res.Push(expression[i]);
+    i--; // skip whitespaces
+}
+
+6) 1 - Информативный комментарий
+
+for (offset = 0; offset < step; offset++)
+{
+    h += offset; // ensure iterating through all slots
+
+7) 6 - Комментарий TODO
+
+// Todo: прояснить логические условия
+if (tv.Y <= p.Y && nv.Y > p.Y && WindingDirectionTest(tv, nv, p) > 0)
+    windingNumber++;
+else if (tv.Y > p.Y && nv.Y <= p.Y && WindingDirectionTest(tv, nv, p) < 0)
+    windingNumber--;
+
+8) 6 - Комментарий TODO
+
+// TODO реализовать сжатие gzip
+// if (response.CheckCompressionAndAddHeaderIfSo(encoding)) responseBytes = response.GetCompressedBytesGzip();
+
+9) 3 - Прояснение
+
+public int Compare(T v1, T v2)
+{
+    ...
+
+    return result;
+    // -1 if v1 < v2
+    // 0 if v1 == v2
+    // +1 if v1 > v2
+}
+
+10) 6 - Комментарий TODO
+
+// TODO: fix violation of SOLID SRP - "Impossible" is not a type of triangle
+public enum TriangleType
+{
+    Impossible,
+    Right,
+    Obtuse,
+    Acute
+}
+
+11) 6 - Комментарий TODO
+
+// TODO: Сделать асинхронным
+
+12) 6 - Комментарий TODO
+
+// TODO: Добавить возможность параллельного подключения нескольких клиентов
