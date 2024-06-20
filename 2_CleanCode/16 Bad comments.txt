@@ -108,9 +108,14 @@ public void RemoveAll(int _value)
 public void PrintAll()
 {
 
-11)
+11) 11 - Закомментированный код
 
-12)
+// return default(T);
+
+12) 11 - Закомментированный код
+
+// public PowerSet<T> Difference(PowerSet<T> set2)
+// {
 
 13)
 
