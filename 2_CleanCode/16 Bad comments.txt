@@ -117,8 +117,20 @@ public void PrintAll()
 // public PowerSet<T> Difference(PowerSet<T> set2)
 // {
 
-13)
+13) 11 - Закомментированный код
 
-14)
+// [HttpGet]
+// public IEnumerable<ItemDto> Get()
+// {
 
-15)
+14) 11 - Закомментированный код
+
+// [HttpGet("{id}")]
+// public ActionResult<ItemDto> GetById(Guid id)
+// {
+
+15) 11 - Закомментированный код
+
+// [HttpPost]
+// public ActionResult Post([FromBody] CreateItemDto createItemDto)
+// {
