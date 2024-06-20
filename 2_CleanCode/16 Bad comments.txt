@@ -1,0 +1,119 @@
+1) 7 - Избыточный комментарий
+
+public bool Remove(int _value)
+{
+    // remove node with given value
+
+2) 12 - Не используйте комментарии там, где можно использовать функцию или переменную
+
+return -1; // if not found
+
+-
+
+const int NOT_FOUND = -1;
+...
+return NOT_FOUND;
+
+3) 12 - Не используйте комментарии там, где можно использовать функцию или переменную
+
+public void Put(string key, T value)
+    {
+      // guaranteed write
+
+-
+
+public void GuaranteedPut(string key, T value)
+
+4) 12 - Не используйте комментарии там, где можно использовать функцию или переменную
+
+public bool Get(T value)
+{
+    // if set contains value return true, otherwise false
+    return FindContainingBucket(value) != -1;
+}
+
+-
+
+public bool Has(T value)
+
+5) 12 - Не используйте комментарии там, где можно использовать функцию или переменную
+
+public int HashFun(string value)
+{
+// random a [1, p-1], b [0, p-1] - from universal family
+int x = 0, a = 2, b = 3, prime = 17;
+
+-
+
+public int HashFunFromUniversalFamily(string value)
+{
+// a [1, p-1], b [0, p-1]
+int x = 0, a = 2, b = 3, prime = 17;
+
+..
+
+6) 12 - Не используйте комментарии там, где можно использовать функцию или переменную
+
+public int Compare(T v1, T v2)
+{
+    ...
+    if (result < 0) result = -1;
+    else if (result > 0) result = 1;
+
+    return result;
+    // -1 if v1 < v2
+    // 0 if v1 == v2
+    // +1 if v1 > v2
+}
+
+-
+
+const int V1_LESS_THAN_V2 = -1;
+const int V1_EQUALS_V2 = 0;
+const int V1_GREATER_THAN_V2 = 1;
+
+public int Compare(T v1, T v2)
+{
+    ...
+    if (result < 0) return V1_LESS_THAN_V2;
+    else if (result > 0) return V1_GREATER_THAN_V2;
+
+    return V1_EQUALS_V2;
+}
+
+7) 12 - Не используйте комментарии там, где можно использовать функцию или переменную
+
+if (typeof(T) == typeof(String)) result = String.Compare(v1.ToString(), v2.ToString()); // version for lexicographic string comparison      
+
+-
+
+if (typeof(T) == typeof(String)) result = LexicographicStringComparison(v1, v2);
+
+8) 7 - Избыточный комментарий
+
+else if (v1 is IComparable<T> comparable) result = comparable.CompareTo(v2); // universal comparison
+
+-
+
+else if (v1 is IComparable<T> comparable) result = comparable.CompareTo(v2);
+
+9) 11 - Закомментированный код
+
+/*
+public void RemoveAll(int _value)
+
+10) 11 - Закомментированный код
+
+/*
+public void PrintAll()
+{
+
+11)
+
+12)
+
+13)
+
+14)
+
+15)
