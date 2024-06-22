@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace AlgorithmsDataStructures
 {
@@ -23,7 +22,7 @@ namespace AlgorithmsDataStructures
         }
 
         // Ex4
-        public static bool IsPalindrome(string str, int index = 0)
+        public static bool IsPalindrome(string str, int index = 0) // TODO remove default
         {
             if (index == str.Length / 2) return true;
             if (str[index] != str[str.Length - index - 1]) return false;
@@ -31,7 +30,7 @@ namespace AlgorithmsDataStructures
         }
 
         // Ex5
-        public static void PrintEven(List<int> numbers, int index = 0)
+        public static void PrintEven(List<int> numbers, int index = 0) // TODO remove default
         {
             if (index >= numbers.Count) return;
             if (numbers[index] % 2 == 0) Console.Write(numbers[index] + " ");
@@ -43,7 +42,7 @@ namespace AlgorithmsDataStructures
         {
             return SecondMaxRecursion(lst);
         }
-        private static int SecondMaxRecursion(List<int> lst, int max = 0, int max2 = 0, int idx = 0)
+        private static int SecondMaxRecursion(List<int> lst, int max = 0, int max2 = 0, int idx = 0) // TODO remove default
         {
             if (idx >= lst.Count) return max2;
             if (lst[idx] >= max)
@@ -81,7 +80,7 @@ namespace AlgorithmsDataStructures
         }
         private static void ParenthesesRecursion(int n,
                                                  List<string> balancedParentheses,
-                                                 int open = 1,
+                                                 int open = 1, // TODO remove default
                                                  int unClosed = 1,
                                                  string possiblyBalanced = "",
                                                  char toAppend = '(')
