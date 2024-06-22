@@ -23,7 +23,7 @@ namespace AlgorithmsDataStructures
 
         // Ex4
         public static bool IsPalindrome(string str) => InternalIsPalindrome(str, 0);
-        public static bool InternalIsPalindrome(string str, int index)
+        private static bool InternalIsPalindrome(string str, int index)
         {
             if (index == str.Length / 2) return true;
             if (str[index] != str[str.Length - index - 1]) return false;
@@ -126,7 +126,7 @@ namespace AlgorithmsDataStructures
     {
         // Ex6
         public static void PrintEvenIndexes(List<T> lst) => InternalPrintEvenIndexes(lst, 0);
-        public static void InternalPrintEvenIndexes(List<T> lst, int index)
+        private static void InternalPrintEvenIndexes(List<T> lst, int index)
         {
             if (index == lst.Count) return;
             if (index % 2 == 0) Console.Write(lst[index].ToString() + " ");
