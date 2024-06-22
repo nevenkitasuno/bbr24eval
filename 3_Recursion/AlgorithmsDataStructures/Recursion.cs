@@ -76,19 +76,17 @@ namespace AlgorithmsDataStructures
         public static List<string> AllBalancedParentheses(int n)
         {
             List<string> balancedParentheses = new List<string>();
-            ParenthesesRecursion(n, 1, 1, "", '(', balancedParentheses);
+            ParenthesesRecursion(n, balancedParentheses);
             return balancedParentheses;
         }
         private static void ParenthesesRecursion(int n,
-                                                 int open,
-                                                 int unClosed,
-                                                 string possiblyBalanced,
-                                                 char toAppend,
-                                                 List<string> balancedParentheses)
+                                                 List<string> balancedParentheses,
+                                                 int open = 1,
+                                                 int unClosed = 1,
+                                                 string possiblyBalanced = "",
+                                                 char toAppend = '(')
         {
-            // TODO: replace conditions with bool variables
-            // TODO: replace with functions
-            if (n == 0) return;
+            if (n <= 0) return;
             if (open > n || unClosed < 0) return; // dead end
             possiblyBalanced += toAppend;
             if (open == n && unClosed == 0)
@@ -96,8 +94,10 @@ namespace AlgorithmsDataStructures
                 balancedParentheses.Add(possiblyBalanced.ToString());
                 return;
             }
-            ParenthesesRecursion(n, open + 1, unClosed + 1, possiblyBalanced, '(', balancedParentheses);
-            ParenthesesRecursion(n, open, unClosed - 1, possiblyBalanced, ')', balancedParentheses);
+            // Try add opening
+            ParenthesesRecursion(n, balancedParentheses, open + 1, unClosed + 1, possiblyBalanced, '(');
+            // Try add closing
+            ParenthesesRecursion(n, balancedParentheses, open, unClosed - 1, possiblyBalanced, ')');
         }
     }
 
