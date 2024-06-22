@@ -128,9 +128,9 @@ namespace AlgorithmsDataStructures
         public static void PrintEvenIndexes(List<T> lst) => InternalPrintEvenIndexes(lst, 0);
         private static void InternalPrintEvenIndexes(List<T> lst, int index)
         {
-            if (index == lst.Count) return;
-            if (index % 2 == 0) Console.Write(lst[index].ToString() + " ");
-            InternalPrintEvenIndexes(lst, index + 1);
+            if (index >= lst.Count) return;
+            Console.Write(lst[index].ToString() + " ");
+            InternalPrintEvenIndexes(lst, index + 2);
         }
     }
 }
