@@ -30,12 +30,12 @@ namespace AlgorithmsDataStructures.Tests
             Assert.Contains("()()()", answer3);
 
             Assert.Equal(14, RecursionFunctions.AllBalancedParentheses(4).Count);
-            Assert.Equal(14, RecursionFunctions.AllBalancedParentheses(5).Count);
-            Assert.Equal(14, RecursionFunctions.AllBalancedParentheses(6).Count);
-            Assert.Equal(14, RecursionFunctions.AllBalancedParentheses(7).Count);
-            Assert.Equal(14, RecursionFunctions.AllBalancedParentheses(8).Count);
-            Assert.Equal(14, RecursionFunctions.AllBalancedParentheses(9).Count);
-            Assert.Equal(14, RecursionFunctions.AllBalancedParentheses(10).Count);
+            Assert.Equal(42, RecursionFunctions.AllBalancedParentheses(5).Count);
+            Assert.Equal(132, RecursionFunctions.AllBalancedParentheses(6).Count);
+            Assert.Equal(429, RecursionFunctions.AllBalancedParentheses(7).Count);
+            Assert.Equal(1430, RecursionFunctions.AllBalancedParentheses(8).Count);
+            Assert.Equal(4862, RecursionFunctions.AllBalancedParentheses(9).Count);
+            Assert.Equal(16796, RecursionFunctions.AllBalancedParentheses(10).Count);
             
             // foreach (string str in RecursionFunctions.AllBalancedParentheses(1)) Console.WriteLine(str);
             // Console.WriteLine();
