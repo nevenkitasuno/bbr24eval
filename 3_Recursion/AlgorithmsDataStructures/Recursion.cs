@@ -22,7 +22,7 @@ namespace AlgorithmsDataStructures
         }
 
         // Ex4
-        public static bool IsPalindrome(string str, int index = 0) // TODO remove default
+        public static bool IsPalindrome(string str, int index)
         {
             if (index == str.Length / 2) return true;
             if (str[index] != str[str.Length - index - 1]) return false;
@@ -30,7 +30,7 @@ namespace AlgorithmsDataStructures
         }
 
         // Ex5
-        public static void PrintEven(List<int> numbers, int index = 0) // TODO remove default
+        public static void PrintEven(List<int> numbers, int index)
         {
             if (index >= numbers.Count) return;
             if (numbers[index] % 2 == 0) Console.Write(numbers[index] + " ");
@@ -40,9 +40,9 @@ namespace AlgorithmsDataStructures
         // Ex7
         public static int SecondMax(List<int> lst)
         {
-            return SecondMaxRecursion(lst);
+            return SecondMaxRecursion(lst, 0, 0, 0);
         }
-        private static int SecondMaxRecursion(List<int> lst, int max = 0, int max2 = 0, int idx = 0) // TODO remove default
+        private static int SecondMaxRecursion(List<int> lst, int max, int max2, int idx)
         {
             if (idx >= lst.Count) return max2;
             if (lst[idx] >= max)
@@ -72,18 +72,19 @@ namespace AlgorithmsDataStructures
         }
 
         // Ex9
-        public static List<string> AllBalancedParentheses(int n)
+        public static List<string> AllBalancedParenthesis(int n)
         {
             List<string> balancedParentheses = new List<string>();
-            ParenthesesRecursion(n, balancedParentheses);
+            // initialize with empty string and adding opening parenthesis
+            ParenthesisRecursion(n, balancedParentheses, 1, 1, "", '(');
             return balancedParentheses;
         }
-        private static void ParenthesesRecursion(int n,
+        private static void ParenthesisRecursion(int n,
                                                  List<string> balancedParentheses,
-                                                 int open = 1, // TODO remove default
-                                                 int unClosed = 1,
-                                                 string possiblyBalanced = "",
-                                                 char toAppend = '(')
+                                                 int open,
+                                                 int unClosed,
+                                                 string possiblyBalanced,
+                                                 char toAppend)
         {
             if (n <= 0) return;
             if (open > n || unClosed < 0) return; // dead end
@@ -94,9 +95,9 @@ namespace AlgorithmsDataStructures
                 return;
             }
             // Try add opening
-            ParenthesesRecursion(n, balancedParentheses, open + 1, unClosed + 1, possiblyBalanced, '(');
+            ParenthesisRecursion(n, balancedParentheses, open + 1, unClosed + 1, possiblyBalanced, '(');
             // Try add closing
-            ParenthesesRecursion(n, balancedParentheses, open, unClosed - 1, possiblyBalanced, ')');
+            ParenthesisRecursion(n, balancedParentheses, open, unClosed - 1, possiblyBalanced, ')');
         }
     }
 
