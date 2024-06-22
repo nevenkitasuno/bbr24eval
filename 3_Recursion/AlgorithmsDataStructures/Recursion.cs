@@ -76,26 +76,24 @@ namespace AlgorithmsDataStructures
         public static List<string> AllBalancedParentheses(int n)
         {
             List<string> balancedParentheses = new List<string>();
-            ParenthesesRecursion(n, 1, 1, new StringBuilder(), '(', balancedParentheses);
+            ParenthesesRecursion(n, 1, 1, "", '(', balancedParentheses);
             return balancedParentheses;
         }
         private static void ParenthesesRecursion(int n,
                                                  int open,
                                                  int unClosed,
-                                                 StringBuilder possiblyBalanced,
+                                                 string possiblyBalanced,
                                                  char toAppend,
                                                  List<string> balancedParentheses)
         {
+            // TODO: replace conditions with bool variables
+            // TODO: replace with functions
             if (n == 0) return;
             if (open > n || unClosed < 0) return; // dead end
-            // if (open == n && unClosed > 0) return; // dead end
-            // if (open == n && unClosed > 1) return; // dead end
-            possiblyBalanced.Append(toAppend);
+            possiblyBalanced += toAppend;
             if (open == n && unClosed == 0)
             {
                 balancedParentheses.Add(possiblyBalanced.ToString());
-                possiblyBalanced.Clear();
-                possiblyBalanced.Append('(');
                 return;
             }
             ParenthesesRecursion(n, open + 1, unClosed + 1, possiblyBalanced, '(', balancedParentheses);
