@@ -6,7 +6,6 @@ using Xunit;
 
 namespace AlgorithmsDataStructures.Tests
 {
-    [Collection("Sequential")]
     public class AllBalancedParentheses
     {
         [Fact]
@@ -30,8 +29,13 @@ namespace AlgorithmsDataStructures.Tests
             Assert.Contains("()(())", answer3);
             Assert.Contains("()()()", answer3);
 
-            List<string> answer4 = RecursionFunctions.AllBalancedParentheses(4);
-            Assert.Equal(14, answer4.Count);
+            Assert.Equal(14, RecursionFunctions.AllBalancedParentheses(4).Count);
+            Assert.Equal(14, RecursionFunctions.AllBalancedParentheses(5).Count);
+            Assert.Equal(14, RecursionFunctions.AllBalancedParentheses(6).Count);
+            Assert.Equal(14, RecursionFunctions.AllBalancedParentheses(7).Count);
+            Assert.Equal(14, RecursionFunctions.AllBalancedParentheses(8).Count);
+            Assert.Equal(14, RecursionFunctions.AllBalancedParentheses(9).Count);
+            Assert.Equal(14, RecursionFunctions.AllBalancedParentheses(10).Count);
             
             // foreach (string str in RecursionFunctions.AllBalancedParentheses(1)) Console.WriteLine(str);
             // Console.WriteLine();
