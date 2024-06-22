@@ -56,15 +56,15 @@ namespace AlgorithmsDataStructures
         // Ex8
         public static List<string> SearchFilesRecursively(string directory, string query)
         {
+            if (!Directory.Exists(directory)) return new List<string>();
+
             List<string> foundFiles = new List<string>();
-            if (Directory.Exists(directory))
-            {
-                foundFiles.AddRange(from string file in Directory.GetFiles(directory)
-                                    where file.Contains(query)
-                                    select Path.GetFileName(file));
-                foreach (string subDirectory in Directory.GetDirectories(directory))
-                    foundFiles.AddRange(SearchFilesRecursively(subDirectory, query));
-            }
+            foundFiles.AddRange(from string file in Directory.GetFiles(directory)
+                                where file.Contains(query)
+                                select Path.GetFileName(file));
+            foreach (string subDirectory in Directory.GetDirectories(directory))
+                foundFiles.AddRange(SearchFilesRecursively(subDirectory, query));
+                
             return foundFiles;
         }
 
