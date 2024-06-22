@@ -22,6 +22,8 @@ namespace AlgorithmsDataStructures.Tests
             Console.WriteLine();
             foreach (string str in RecursionFunctions.AllBalancedParentheses(3)) Console.WriteLine(str);
             Console.WriteLine();
+            foreach (string str in RecursionFunctions.AllBalancedParentheses(4)) Console.WriteLine(str);
+            Console.WriteLine();
             Assert.True(true);
         }
     }
