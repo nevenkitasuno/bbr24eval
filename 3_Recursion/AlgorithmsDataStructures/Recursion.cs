@@ -34,7 +34,7 @@ namespace AlgorithmsDataStructures
         public static void PrintEven(List<int> numbers) => InternalPrintEven(numbers, 0);
         private static void InternalPrintEven(List<int> numbers, int index)
         {
-            if (index >= numbers.Count) return;
+            if (index == numbers.Count) return;
             if (numbers[index] % 2 == 0) Console.Write(numbers[index] + " ");
             InternalPrintEven(numbers, index + 1);
         }
@@ -43,7 +43,7 @@ namespace AlgorithmsDataStructures
         public static int SecondMax(List<int> lst) => SecondMaxRecursion(lst, 0, 0, 0);
         private static int SecondMaxRecursion(List<int> lst, int max, int max2, int idx)
         {
-            if (idx >= lst.Count) return max2;
+            if (idx == lst.Count) return max2;
             if (lst[idx] >= max)
             {
                 max2 = max;
@@ -128,7 +128,7 @@ namespace AlgorithmsDataStructures
         public static void PrintEvenIndexes(List<T> lst) => InternalPrintEvenIndexes(lst, 0);
         public static void InternalPrintEvenIndexes(List<T> lst, int index)
         {
-            if (index >= lst.Count) return;
+            if (index == lst.Count) return;
             if (index % 2 == 0) Console.Write(lst[index].ToString() + " ");
             InternalPrintEvenIndexes(lst, index + 1);
         }
