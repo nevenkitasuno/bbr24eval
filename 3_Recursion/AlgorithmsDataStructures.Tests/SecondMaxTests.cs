@@ -9,6 +9,7 @@ namespace AlgorithmsDataStructures.Tests
         public void GeneralTests()
         {
             Assert.Equal(5, RecursionFunctions.SecondMax(new List<int>{5, 4, 3, 2, 5}));
+            Assert.Equal(4, RecursionFunctions.SecondMax(new List<int>{5, 3, 4, 2, 1}));
             Assert.Equal(4, RecursionFunctions.SecondMax(new List<int>{4, 3, 2, 5}));
         }
 

@@ -49,6 +49,7 @@ namespace AlgorithmsDataStructures
                 max2 = max;
                 max = lst[idx];
             }
+            else if (max2 < lst[idx] && lst[idx] < max) max2 = lst[idx];
             return SecondMaxRecursion(lst, max, max2, idx + 1);
         }
 
@@ -56,18 +57,14 @@ namespace AlgorithmsDataStructures
         public static List<string> SearchFilesRecursively(string directory, string query)
         {
             List<string> foundFiles = new List<string>();
-            SearchFilesRecursivelyRecursion(directory, query, foundFiles);
-            return foundFiles;
-        }
-        private static void SearchFilesRecursivelyRecursion(string directory, string query, List<string> foundFiles)
-        {
             if (Directory.Exists(directory))
             {
                 foundFiles.AddRange(from string file in Directory.GetFiles(directory)
                                     where file.Contains(query)
                                     select Path.GetFileName(file));
-                foreach (string subDirectory in Directory.GetDirectories(directory)) SearchFilesRecursivelyRecursion(subDirectory, query, foundFiles);
+                foreach (string subDirectory in Directory.GetDirectories(directory)) foundFiles.AddRange(SearchFilesRecursively(subDirectory, query));
             }
+            return foundFiles;
         }
 
         // Ex9
