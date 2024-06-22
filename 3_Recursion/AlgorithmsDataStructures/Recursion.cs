@@ -62,7 +62,8 @@ namespace AlgorithmsDataStructures
                 foundFiles.AddRange(from string file in Directory.GetFiles(directory)
                                     where file.Contains(query)
                                     select Path.GetFileName(file));
-                foreach (string subDirectory in Directory.GetDirectories(directory)) foundFiles.AddRange(SearchFilesRecursively(subDirectory, query));
+                foreach (string subDirectory in Directory.GetDirectories(directory))
+                    foundFiles.AddRange(SearchFilesRecursively(subDirectory, query));
             }
             return foundFiles;
         }
