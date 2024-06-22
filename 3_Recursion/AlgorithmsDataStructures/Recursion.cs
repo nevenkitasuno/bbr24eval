@@ -126,7 +126,7 @@ namespace AlgorithmsDataStructures
     public static class RecursionFunctionsGeneric<T>
     {
         // Ex6
-        public static void PrintEvenIndexes(List<T> lst, int index = 0)
+        public static void PrintEvenIndexes(List<T> lst, int index)
         {
             if (index >= lst.Count) return;
             if (index % 2 == 0) Console.Write(lst[index].ToString() + " ");

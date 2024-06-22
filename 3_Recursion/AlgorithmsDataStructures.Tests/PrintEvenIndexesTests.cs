@@ -16,7 +16,7 @@ namespace AlgorithmsDataStructures.Tests
             StringWriter output = new();
             Console.SetOut(output);
 
-            RecursionFunctionsGeneric<int>.PrintEvenIndexes(new List<int>{1, 2, 3, 4, 5, 8, 9, 6, 7, 10, 11});
+            RecursionFunctionsGeneric<int>.PrintEvenIndexes(new List<int>{1, 2, 3, 4, 5, 8, 9, 6, 7, 10, 11}, 0);
 
             string outputString = output.ToString();
             Assert.Equal("1 3 5 9 7 11 ", outputString);
@@ -32,7 +32,7 @@ namespace AlgorithmsDataStructures.Tests
             StringWriter output = new();
             Console.SetOut(output);
 
-            RecursionFunctionsGeneric<int>.PrintEvenIndexes(new List<int>{});
+            RecursionFunctionsGeneric<int>.PrintEvenIndexes(new List<int>{}, 0);
 
             string outputString = output.ToString();
             Assert.Equal("", outputString);
@@ -48,7 +48,7 @@ namespace AlgorithmsDataStructures.Tests
             StringWriter output = new();
             Console.SetOut(output);
 
-            RecursionFunctionsGeneric<string>.PrintEvenIndexes(new List<string>{"cat", "bat", "rat"});
+            RecursionFunctionsGeneric<string>.PrintEvenIndexes(new List<string>{"cat", "bat", "rat"}, 0);
 
             string outputString = output.ToString();
             Assert.Equal("cat rat ", outputString);
