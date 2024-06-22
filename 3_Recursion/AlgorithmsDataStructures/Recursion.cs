@@ -22,26 +22,25 @@ namespace AlgorithmsDataStructures
         }
 
         // Ex4
-        public static bool IsPalindrome(string str, int index)
+        public static bool IsPalindrome(string str) => InternalIsPalindrome(str, 0);
+        public static bool InternalIsPalindrome(string str, int index)
         {
             if (index == str.Length / 2) return true;
             if (str[index] != str[str.Length - index - 1]) return false;
-            return IsPalindrome(str, index + 1);
+            return InternalIsPalindrome(str, index + 1);
         }
 
         // Ex5
-        public static void PrintEven(List<int> numbers, int index)
+        public static void PrintEven(List<int> numbers) => InternalPrintEven(numbers, 0);
+        private static void InternalPrintEven(List<int> numbers, int index)
         {
             if (index >= numbers.Count) return;
             if (numbers[index] % 2 == 0) Console.Write(numbers[index] + " ");
-            PrintEven(numbers, index + 1);
+            InternalPrintEven(numbers, index + 1);
         }
 
         // Ex7
-        public static int SecondMax(List<int> lst)
-        {
-            return SecondMaxRecursion(lst, 0, 0, 0);
-        }
+        public static int SecondMax(List<int> lst) => SecondMaxRecursion(lst, 0, 0, 0);
         private static int SecondMaxRecursion(List<int> lst, int max, int max2, int idx)
         {
             if (idx >= lst.Count) return max2;
@@ -126,11 +125,12 @@ namespace AlgorithmsDataStructures
     public static class RecursionFunctionsGeneric<T>
     {
         // Ex6
-        public static void PrintEvenIndexes(List<T> lst, int index)
+        public static void PrintEvenIndexes(List<T> lst) => InternalPrintEvenIndexes(lst, 0);
+        public static void InternalPrintEvenIndexes(List<T> lst, int index)
         {
             if (index >= lst.Count) return;
             if (index % 2 == 0) Console.Write(lst[index].ToString() + " ");
-            PrintEvenIndexes(lst, index + 1);
+            InternalPrintEvenIndexes(lst, index + 1);
         }
     }
 }
