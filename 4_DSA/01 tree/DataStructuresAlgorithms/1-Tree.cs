@@ -60,6 +60,7 @@ namespace AlgorithmsDataStructures2
         {
             if (Parent == null) return;
             Parent.Children.Remove(this);
+            if (Parent.Children.Count == 0) Parent.Children = null;
             Parent = newParent;
             if (newParent != null) newParent.AddChild(this);
         }
@@ -86,7 +87,7 @@ namespace AlgorithmsDataStructures2
             if (ParentNode != null) ParentNode.AddChild(NewChild);
         }
 
-        public void DeleteNode(SimpleTreeNode<T> NodeToDelete) => MoveNode(NodeToDelete, null);
+        public void DeleteNode(SimpleTreeNode<T> NodeToDelete) => MoveNode(NodeToDelete, null); // make parent null
         public List<SimpleTreeNode<T>> GetAllNodes() => Root.GetDescendants();
 
         public List<SimpleTreeNode<T>> FindNodesByValue(T val) => Root.FindDescendants(val);
@@ -96,7 +97,7 @@ namespace AlgorithmsDataStructures2
             if (OriginalNode != null) OriginalNode.ReplaceParent(NewParent);
         }
 
-        public int Count() => Root.CountDescendants();
+        public int Count() => Root.CountDescendants() + 1;
 
         public int LeafCount() => Root.LeafCount();
     }
