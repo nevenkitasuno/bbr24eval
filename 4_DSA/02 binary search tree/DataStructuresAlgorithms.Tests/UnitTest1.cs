@@ -23,6 +23,32 @@ namespace AlgorithmsDataStructures2.Tests
             Assert.NotNull(result.Node.Parent);
             Assert.Null(result.Node.LeftChild);
             Assert.Equal(5, tree.Count());
+
+            tree.DeleteNodeByKey(9); // non-existing
+            Assert.Equal(5, tree.Count());
+
+            tree.DeleteNodeByKey(4); // full-child
+            Assert.Equal(4, tree.Count());
+
+            tree.DeleteNodeByKey(9); // non-existing after deletion
+            Assert.Equal(4, tree.Count());
+
+            tree.DeleteNodeByKey(3); // left
+            Assert.Equal(3, tree.Count());
+
+            tree.DeleteNodeByKey(7); // right
+            Assert.Equal(2, tree.Count());
+
+            tree.DeleteNodeByKey(5); // head
+            Assert.Equal(1, tree.Count());
+
+            tree.DeleteNodeByKey(6); // last
+            Assert.Equal(1, tree.Count());
+
+            tree.AddKeyValue(3, 4); // add after last deletion
+            Assert.NotNull(result.Node);
+            Assert.Equal(3, result.Node.NodeKey);
+            Assert.Equal(4, result.Node.NodeValue);
         }
     }
 }
