@@ -25,7 +25,7 @@ namespace AlgorithmsDataStructures2
 
         public void Delete()
         {
-            if (IsLeaf()) Parent.ReplaceChild(this, null);
+            if (IsLeaf()) Parent.ReplaceChild(this, null); // Object reference not set to an instance of an object.
             else if (LeftChild == null) Parent.ReplaceChild(this, RightChild);
             else if (RightChild == null) Parent.ReplaceChild(this, LeftChild);
             else
@@ -99,8 +99,8 @@ namespace AlgorithmsDataStructures2
                 NodeHasKey = false,
                 ToLeft = toLeft
             };
-            else if (node.NodeKey < key) return InternalFindNodeByKey(key, node.LeftChild, node, true);
-            else if (node.NodeKey > key) return InternalFindNodeByKey(key, node.RightChild, node, false);
+            else if (key < node.NodeKey) return InternalFindNodeByKey(key, node.LeftChild, node, true);
+            else if (key > node.NodeKey) return InternalFindNodeByKey(key, node.RightChild, node, false);
             else return new BSTFind<T>
             {
                 NodeHasKey = true,
@@ -110,6 +110,11 @@ namespace AlgorithmsDataStructures2
 
         public bool AddKeyValue(int key, T val)
         {
+            if (Root == null)
+            {
+                Root = new BSTNode<T>(key, val, null);
+                return true;
+            }
             BSTFind<T> place = FindNodeByKey(key);
             if (place.NodeHasKey) return false; // если ключ уже есть
 
@@ -135,7 +140,7 @@ namespace AlgorithmsDataStructures2
             return true;
         }
 
-        public int Count() => Root.Count();
-
+        public int Count() => Root == null ? 0 : Root.Count();
     }
 }
+
