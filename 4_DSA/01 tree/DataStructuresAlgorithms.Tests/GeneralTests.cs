@@ -38,18 +38,33 @@ namespace AlgorithmsDataStructures2.Tests
             var tree = new SimpleTree<int>(new SimpleTreeNode<int>(1, null));
             tree.AddChild(tree.Root, new SimpleTreeNode<int>(2, tree.Root));
             tree.AddChild(tree.Root, new SimpleTreeNode<int>(3, tree.Root));
+            tree.AddChild(tree.Root, new SimpleTreeNode<int>(3, tree.Root));
             var result = tree.FindNodesByValue(2);
             Assert.Single(result);
             Assert.Equal(2, result[0].NodeValue);
+            result = tree.FindNodesByValue(3);
+            Assert.Equal(2, result.Count);
+            Assert.Equal(3, result[0].NodeValue);
         }
 
         [Fact]
-        public void TestMoveNode()
+        public void TestMoveNodeWithNullParent()
         {
             var tree = new SimpleTree<int>(new SimpleTreeNode<int>(1, null));
             tree.AddChild(tree.Root, new SimpleTreeNode<int>(2, tree.Root));
             tree.MoveNode(tree.Root.Children[0], null);
             Assert.Null(tree.Root.Children);
+        }
+
+        [Fact]
+        public void TestMoveNodeWithNewParent()
+        {
+            var tree = new SimpleTree<int>(new SimpleTreeNode<int>(1, null));
+            tree.AddChild(tree.Root, new SimpleTreeNode<int>(2, tree.Root));
+            var newParent = new SimpleTree<int>(new SimpleTreeNode<int>(3, null));
+            tree.MoveNode(tree.Root.Children[0], newParent.Root);
+            Assert.Null(tree.Root.Children);
+            Assert.Equal(2, newParent.Root.Children[0].NodeValue);
         }
 
         [Fact]

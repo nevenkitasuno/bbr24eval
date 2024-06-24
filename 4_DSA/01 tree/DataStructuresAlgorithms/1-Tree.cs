@@ -9,12 +9,14 @@ namespace AlgorithmsDataStructures2
         public T NodeValue;
         public SimpleTreeNode<T> Parent; // null for root
         public List<SimpleTreeNode<T>> Children; // null if no children
+        public int Level { get; private set; }
 
         public SimpleTreeNode(T val, SimpleTreeNode<T> parent)
         {
             NodeValue = val;
             Parent = parent;
             Children = null;
+            Level = parent == null ? 0 : parent.Level + 1;
         }
 
         public List<SimpleTreeNode<T>> GetDescendants()
@@ -46,7 +48,7 @@ namespace AlgorithmsDataStructures2
                 count += child.CountDescendants();
             return count;
         }
-        
+
         public int LeafCount()
         {
             if (Children == null) return 1;
@@ -56,13 +58,20 @@ namespace AlgorithmsDataStructures2
             return count;
         }
 
+        public void RemoveChild(SimpleTreeNode<T> child)
+        {
+            if (Children == null) return;
+            Children.Remove(child);
+            if (Children.Count == 0) Children = null;
+            child.Level = 0;
+        }
+
         public void ReplaceParent(SimpleTreeNode<T> newParent) // remove parent if newParent is null
         {
-            if (Parent == null) return;
-            Parent.Children.Remove(this);
-            if (Parent.Children.Count == 0) Parent.Children = null;
-            Parent = newParent;
+            if (Parent != null) Parent.RemoveChild(this);
             if (newParent != null) newParent.AddChild(this);
+            Parent = newParent;
+            Level = newParent == null ? 0 : newParent.Level + 1;
         }
 
         public void AddChild(SimpleTreeNode<T> NewChild)
@@ -70,6 +79,7 @@ namespace AlgorithmsDataStructures2
             if (Children == null) Children = new List<SimpleTreeNode<T>>();
             Children.Add(NewChild);
             NewChild.Parent = this;
+            NewChild.Level = Level + 1;
         }
     }
 
