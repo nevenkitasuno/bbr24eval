@@ -1,71 +1,104 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.VisualBasic;
 
 namespace AlgorithmsDataStructures2
 {
-  public class SimpleTreeNode<T>
-  {
-    public T NodeValue; // значение в узле
-    public SimpleTreeNode<T> Parent; // родитель или null для корня
-    public List<SimpleTreeNode<T>> Children; // список дочерних узлов или null
-	
-    public SimpleTreeNode(T val, SimpleTreeNode<T> parent)
+    public class SimpleTreeNode<T>
     {
-      NodeValue = val;
-      Parent = parent;
-      Children = null;
-    }
-  }
-	
-  public class SimpleTree<T>
-  {
-    public SimpleTreeNode<T> Root; // корень, может быть null
+        public T NodeValue;
+        public SimpleTreeNode<T> Parent; // null for root
+        public List<SimpleTreeNode<T>> Children; // null if no children
 
-    public SimpleTree(SimpleTreeNode<T> root)
-    {
-      Root = root;
-    }
-	
-    public void AddChild(SimpleTreeNode<T> ParentNode, SimpleTreeNode<T> NewChild)
-    {
-      // ваш код добавления нового дочернего узла существующему ParentNode
+        public SimpleTreeNode(T val, SimpleTreeNode<T> parent)
+        {
+            NodeValue = val;
+            Parent = parent;
+            Children = null;
+        }
+
+        public List<SimpleTreeNode<T>> GetDescendants()
+        {
+            if (Children == null) return new();
+            List<SimpleTreeNode<T>> nodes = new List<SimpleTreeNode<T>>();
+            foreach (SimpleTreeNode<T> child in Children)
+                nodes.AddRange(child.GetDescendants());
+            return nodes;
+        }
+
+        public List<SimpleTreeNode<T>> FindDescendants(T val)
+        {
+            if (Children == null) return new();
+            List<SimpleTreeNode<T>> searchResult = new List<SimpleTreeNode<T>>();
+            foreach (SimpleTreeNode<T> child in Children)
+            {
+                if (child.NodeValue.Equals(val)) searchResult.Add(child);
+                searchResult.AddRange(child.FindDescendants(val));
+            }
+            return searchResult;
+        }
+
+        public int CountDescendants()
+        {
+            if (Children == null) return 0;
+            int count = Children.Count;
+            foreach (SimpleTreeNode<T> child in Children)
+                count += child.CountDescendants();
+            return count;
+        }
+        
+        public int LeafCount()
+        {
+            if (Children == null) return 1;
+            int count = 0;
+            foreach (SimpleTreeNode<T> child in Children)
+                count += child.LeafCount();
+            return count;
+        }
+
+        public void ReplaceParent(SimpleTreeNode<T> newParent) // remove parent if newParent is null
+        {
+            if (Parent == null) return;
+            Parent.Children.Remove(this);
+            Parent = newParent;
+            if (newParent != null) newParent.AddChild(this);
+        }
+
+        public void AddChild(SimpleTreeNode<T> NewChild)
+        {
+            if (Children == null) Children = new List<SimpleTreeNode<T>>();
+            Children.Add(NewChild);
+            NewChild.Parent = this;
+        }
     }
 
-    public void DeleteNode(SimpleTreeNode<T> NodeToDelete)
+    public class SimpleTree<T>
     {
-      // ваш код удаления существующего узла NodeToDelete
-    }
+        public SimpleTreeNode<T> Root;
 
-   public List<SimpleTreeNode<T>> GetAllNodes()
-    {
-      // ваш код выдачи всех узлов дерева в определённом порядке
-      return null;
-    }
-	
-   public List<SimpleTreeNode<T>> FindNodesByValue(T val)
-   {
-      // ваш код поиска узлов по значению
-      return null;
-   }
-   
-    public void MoveNode(SimpleTreeNode<T> OriginalNode, SimpleTreeNode<T> NewParent)
-    {
-      // ваш код перемещения узла вместе с его поддеревом -- 
-	  // в качестве дочернего для узла NewParent
-    }
-   
-    public int Count()
-    {
-      // количество всех узлов в дереве
-	  return 0;
-    }
+        public SimpleTree(SimpleTreeNode<T> root)
+        {
+            Root = root;
+        }
 
-    public int LeafCount()
-    {
-      // количество листьев в дереве
-	  return 0;
-    }
+        public void AddChild(SimpleTreeNode<T> ParentNode, SimpleTreeNode<T> NewChild)
+        {
+            if (ParentNode != null) ParentNode.AddChild(NewChild);
+        }
 
-  }
- 
+        public void DeleteNode(SimpleTreeNode<T> NodeToDelete) => MoveNode(NodeToDelete, null);
+        public List<SimpleTreeNode<T>> GetAllNodes() => Root.GetDescendants();
+
+        public List<SimpleTreeNode<T>> FindNodesByValue(T val) => Root.FindDescendants(val);
+
+        public void MoveNode(SimpleTreeNode<T> OriginalNode, SimpleTreeNode<T> NewParent)
+        {
+            if (OriginalNode != null) OriginalNode.ReplaceParent(NewParent);
+        }
+
+        public int Count() => Root.CountDescendants();
+
+        public int LeafCount() => Root.LeafCount();
+    }
 }
+
