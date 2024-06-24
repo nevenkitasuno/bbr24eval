@@ -19,24 +19,22 @@ namespace AlgorithmsDataStructures2
             Level = parent == null ? 0 : parent.Level + 1;
         }
 
-        public List<SimpleTreeNode<T>> GetDescendants()
+        public List<SimpleTreeNode<T>> GetAllNodes()
         {
-            if (Children == null) return new();
-            List<SimpleTreeNode<T>> nodes = new List<SimpleTreeNode<T>>();
+            List<SimpleTreeNode<T>> nodes = new List<SimpleTreeNode<T>>{this};
+            if (Children == null) return nodes;
             foreach (SimpleTreeNode<T> child in Children)
-                nodes.AddRange(child.GetDescendants());
+                nodes.AddRange(child.GetAllNodes());
             return nodes;
         }
 
-        public List<SimpleTreeNode<T>> FindDescendants(T val)
+        public List<SimpleTreeNode<T>> FindNodesByValue(T val)
         {
-            if (Children == null) return new();
             List<SimpleTreeNode<T>> searchResult = new List<SimpleTreeNode<T>>();
+            if (NodeValue.Equals(val)) searchResult.Add(this);
+            if (Children == null) return searchResult;
             foreach (SimpleTreeNode<T> child in Children)
-            {
-                if (child.NodeValue.Equals(val)) searchResult.Add(child);
-                searchResult.AddRange(child.FindDescendants(val));
-            }
+                searchResult.AddRange(child.FindNodesByValue(val));
             return searchResult;
         }
 
@@ -98,9 +96,9 @@ namespace AlgorithmsDataStructures2
         }
 
         public void DeleteNode(SimpleTreeNode<T> NodeToDelete) => MoveNode(NodeToDelete, null); // make parent null
-        public List<SimpleTreeNode<T>> GetAllNodes() => Root.GetDescendants();
+        public List<SimpleTreeNode<T>> GetAllNodes() => Root.GetAllNodes();
 
-        public List<SimpleTreeNode<T>> FindNodesByValue(T val) => Root.FindDescendants(val);
+        public List<SimpleTreeNode<T>> FindNodesByValue(T val) => Root.FindNodesByValue(val);
 
         public void MoveNode(SimpleTreeNode<T> OriginalNode, SimpleTreeNode<T> NewParent)
         {

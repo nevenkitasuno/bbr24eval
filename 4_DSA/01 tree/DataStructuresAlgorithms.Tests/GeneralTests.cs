@@ -35,16 +35,28 @@ namespace AlgorithmsDataStructures2.Tests
         [Fact]
         public void TestFindNodesByValue()
         {
-            var tree = new SimpleTree<int>(new SimpleTreeNode<int>(1, null));
+            var tree = new SimpleTree<int>(new SimpleTreeNode<int>(2, null));
             tree.AddChild(tree.Root, new SimpleTreeNode<int>(2, tree.Root));
             tree.AddChild(tree.Root, new SimpleTreeNode<int>(3, tree.Root));
             tree.AddChild(tree.Root, new SimpleTreeNode<int>(3, tree.Root));
             var result = tree.FindNodesByValue(2);
-            Assert.Single(result);
             Assert.Equal(2, result[0].NodeValue);
+            Assert.Equal(2, result.Count);
             result = tree.FindNodesByValue(3);
             Assert.Equal(2, result.Count);
             Assert.Equal(3, result[0].NodeValue);
+        }
+
+        [Fact]
+        public void TestGetAllNodes()
+        {
+            var tree = new SimpleTree<int>(new SimpleTreeNode<int>(2, null));
+            tree.AddChild(tree.Root, new SimpleTreeNode<int>(1, tree.Root));
+            tree.AddChild(tree.Root, new SimpleTreeNode<int>(3, tree.Root));
+            tree.AddChild(tree.Root, new SimpleTreeNode<int>(3, tree.Root));
+            tree.AddChild(tree.Root.Children[0], new SimpleTreeNode<int>(3, tree.Root));
+            var result = tree.GetAllNodes();
+            Assert.Equal(5, result.Count);
         }
 
         [Fact]
