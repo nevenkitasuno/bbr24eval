@@ -45,14 +45,6 @@ namespace AlgorithmsDataStructures2
             bool IsRoot = Parent == null;
             return "NodeKey: " + NodeKey + ", NodeValue: " + NodeValue + ", HasLeftChild: " + HasLeftChild + ", HasRightChild: " + HasRightChild + ", IsRoot: " + IsRoot;
         }
-
-        public void DeepCopy(BSTNode<T> source)
-        {
-            NodeKey = source.NodeKey;
-            NodeValue = source.NodeValue;
-            LeftChild = source.LeftChild;
-            RightChild = source.RightChild;
-        }
     }
 
     // промежуточный результат поиска
