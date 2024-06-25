@@ -27,7 +27,7 @@ namespace AlgorithmsDataStructures2.Tests
             tree.DeleteNodeByKey(9); // non-existing
             Assert.Equal(5, tree.Count());
 
-            tree.DeleteNodeByKey(4); // full-child
+            Assert.True(tree.DeleteNodeByKey(4)); // full-child
             result = tree.FindNodeByKey(4);
             Assert.Null(result.Node);
             Assert.Equal(4, tree.Count());
@@ -85,7 +85,7 @@ namespace AlgorithmsDataStructures2.Tests
         }
 
         [Fact] 
-        public void DeleteHeadTest() // FAIL
+        public void DeleteHeadTest()
         {
             var tree = new BST<int>(new BSTNode<int>(5, 2, null));
             tree.AddKeyValue(3, 4);
@@ -94,12 +94,12 @@ namespace AlgorithmsDataStructures2.Tests
             tree.AddKeyValue(7, 5);
             Assert.Equal(5, tree.Count());
 
-            tree.DeleteNodeByKey(5);
+            Assert.True(tree.DeleteNodeByKey(5));
             Assert.Equal(4, tree.Count());
         }
 
         [Fact] 
-        public void DeleteLastTest() // FAIL
+        public void DeleteLastTest()
         {
             var tree = new BST<int>(new BSTNode<int>(5, 2, null));
             Assert.Equal(1, tree.Count());
