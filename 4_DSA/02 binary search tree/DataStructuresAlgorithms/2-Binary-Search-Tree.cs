@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Formats.Asn1;
 using System.Reflection;
 
 namespace AlgorithmsDataStructures2
@@ -24,8 +25,8 @@ namespace AlgorithmsDataStructures2
         public int CountChildren()
         {
             int count = 0;
-            if (LeftChild!= null) count++;
-            if (RightChild!= null) count++;
+            if (LeftChild != null) count++;
+            if (RightChild != null) count++;
             return count;
         }
 
@@ -40,8 +41,8 @@ namespace AlgorithmsDataStructures2
 
         public override string ToString()
         {
-            bool HasLeftChild = LeftChild!= null;
-            bool HasRightChild = RightChild!= null;
+            bool HasLeftChild = LeftChild != null;
+            bool HasRightChild = RightChild != null;
             bool IsRoot = Parent == null;
             return "NodeKey: " + NodeKey + ", NodeValue: " + NodeValue + ", HasLeftChild: " + HasLeftChild + ", HasRightChild: " + HasRightChild + ", IsRoot: " + IsRoot;
         }
@@ -135,28 +136,25 @@ namespace AlgorithmsDataStructures2
                 while (ancestor.LeftChild != null) ancestor = ancestor.LeftChild;
                 if (ancestor.RightChild != null)
                 {
+                    if (ancestor.Parent.RightChild == ancestor) ancestor.Parent.RightChild = null;
+                    else ancestor.Parent.LeftChild = null;
+
+                    ancestor.Parent = toDelete.Node.Parent;
+
+                    ancestor.LeftChild = toDelete.Node.LeftChild;
+                    toDelete.Node.LeftChild.Parent = ancestor;
+
                     if (toDelete.Node.RightChild == ancestor)
                     {
-                        // correct
-                        if (ancestor.Parent.RightChild == ancestor) ancestor.Parent.RightChild = null;
-                        else ancestor.Parent.LeftChild = null;
-                        ancestor.Parent = toDelete.Node.Parent; // = null
-                        ancestor.LeftChild = toDelete.Node.LeftChild;
-                        toDelete.Node.LeftChild.Parent = ancestor;
-                        if (toDelete.ToLeft) toDelete.Node.Parent.LeftChild = ancestor;
-                        else toDelete.Node.Parent.RightChild = ancestor;
-                        if (ancestor.Parent == null) Root = ancestor;
-                        return true;
+                        ancestor.RightChild = toDelete.Node.RightChild;
+                        toDelete.Node.RightChild.Parent = ancestor;
                     }
-                    else
-                    {
-                        // bug mess
-                        toDelete.Node.NodeKey = ancestor.NodeKey;
-                        toDelete.Node.NodeValue = ancestor.NodeValue;
-                        ancestor.DeepCopy(ancestor.RightChild);
-                        if (ancestor.Parent == null) Root = ancestor;
-                        return true;
-                    }
+
+                    if (ancestor.Parent == null) Root = ancestor;
+                    else if (toDelete.ToLeft) toDelete.Node.Parent.LeftChild = ancestor;
+                    else toDelete.Node.Parent.RightChild = ancestor;
+
+                    return true;
                 }
                 else // ancestor is leaf
                 {
@@ -168,52 +166,32 @@ namespace AlgorithmsDataStructures2
                 return true;
             }
 
-            if (toDelete.Node.Parent == null && toDelete.Node.CountChildren() == 0)
-            {
-                Root = null;
-                return true;
-            }
-
-            if (toDelete.Node.Parent == null && toDelete.Node.LeftChild == null)
-            {
-                Root = toDelete.Node.RightChild;
-                Root.Parent = null;
-                return true;
-            }
-
-            if (toDelete.Node.Parent == null && toDelete.Node.RightChild == null)
-            {
-                Root = toDelete.Node.LeftChild;
-                Root.Parent = null;
-                return true;
-            }
-
-            // Node not root
-
-            if (toDelete.Node.CountChildren() == 0)
+            if (toDelete.Node.CountChildren() == 0 && toDelete.Node.Parent != null)
             {
                 if (toDelete.ToLeft) toDelete.Node.Parent.LeftChild = null;
                 else toDelete.Node.Parent.RightChild = null;
                 return true;
             }
 
-            if (toDelete.Node.LeftChild == null)
+            BSTNode<T> replacer = new(0, default, null);
+            if (toDelete.Node.LeftChild == null) replacer = toDelete.Node.RightChild;
+            else if (toDelete.Node.RightChild == null) replacer = toDelete.Node.LeftChild;
+
+            if (toDelete.Node.Parent == null)
             {
-                toDelete.Node.RightChild.Parent = toDelete.Node.Parent;
-                if (toDelete.ToLeft) toDelete.Node.Parent.LeftChild = toDelete.Node.RightChild;
-                else toDelete.Node.Parent.RightChild = toDelete.Node.RightChild;
-                return true;
+                Root = replacer;
+                if (toDelete.Node.CountChildren() == 0) Root = null;
+                else Root.Parent = null;
+            }
+            else
+            {
+                replacer.Parent = toDelete.Node.Parent;
+
+                if (toDelete.ToLeft) toDelete.Node.Parent.LeftChild = replacer;
+                else toDelete.Node.Parent.RightChild = replacer;
             }
 
-            if (toDelete.Node.RightChild == null)
-            {
-                toDelete.Node.LeftChild.Parent = toDelete.Node.Parent;
-                if (toDelete.ToLeft) toDelete.Node.Parent.LeftChild = toDelete.Node.LeftChild;
-                else toDelete.Node.Parent.RightChild = toDelete.Node.LeftChild;
-                return true;
-            }
-
-            return false;
+            return true;
         }
 
         public int Count() => Root == null ? 0 : Root.Count();
