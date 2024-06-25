@@ -130,71 +130,74 @@ namespace AlgorithmsDataStructures2
             BSTFind<T> toDelete = FindNodeByKey(key);
             if (!toDelete.NodeHasKey) return false;
 
-            if (toDelete.Node.CountChildren() == 2)
-            {
-                BSTNode<T> ancestor = toDelete.Node.RightChild;
-                while (ancestor.LeftChild != null) ancestor = ancestor.LeftChild;
-                if (ancestor.RightChild != null)
-                {
-                    if (ancestor.Parent.RightChild == ancestor) ancestor.Parent.RightChild = null;
-                    else ancestor.Parent.LeftChild = null;
-
-                    ancestor.Parent = toDelete.Node.Parent;
-
-                    ancestor.LeftChild = toDelete.Node.LeftChild;
-                    toDelete.Node.LeftChild.Parent = ancestor;
-
-                    if (toDelete.Node.RightChild == ancestor)
-                    {
-                        ancestor.RightChild = toDelete.Node.RightChild;
-                        toDelete.Node.RightChild.Parent = ancestor;
-                    }
-
-                    if (ancestor.Parent == null) Root = ancestor;
-                    else if (toDelete.ToLeft) toDelete.Node.Parent.LeftChild = ancestor;
-                    else toDelete.Node.Parent.RightChild = ancestor;
-
-                    return true;
-                }
-                else // ancestor is leaf
-                {
-                    if (ancestor.Parent.RightChild == ancestor) ancestor.Parent.RightChild = null;
-                    else ancestor.Parent.LeftChild = null;
-                    toDelete.Node.NodeKey = ancestor.NodeKey;
-                    toDelete.Node.NodeValue = ancestor.NodeValue;
-                }
-                return true;
-            }
-
-            if (toDelete.Node.CountChildren() == 0 && toDelete.Node.Parent != null)
-            {
-                if (toDelete.ToLeft) toDelete.Node.Parent.LeftChild = null;
-                else toDelete.Node.Parent.RightChild = null;
-                return true;
-            }
-
-            BSTNode<T> replacer = new(0, default, null);
-            if (toDelete.Node.LeftChild == null) replacer = toDelete.Node.RightChild;
-            else if (toDelete.Node.RightChild == null) replacer = toDelete.Node.LeftChild;
-
-            if (toDelete.Node.Parent == null)
-            {
-                Root = replacer;
-                if (toDelete.Node.CountChildren() == 0) Root = null;
-                else Root.Parent = null;
-            }
-            else
-            {
-                replacer.Parent = toDelete.Node.Parent;
-
-                if (toDelete.ToLeft) toDelete.Node.Parent.LeftChild = replacer;
-                else toDelete.Node.Parent.RightChild = replacer;
-            }
-
+            if (toDelete.Node.CountChildren() == 2) InternalDeleteNodeWithTwoChildren(toDelete);
+            else if (toDelete.Node.CountChildren() == 0 && toDelete.Node.Parent != null) InternalDeleteCornerCase(toDelete);
+            else InternalDeleteGeneralCase(toDelete);
             return true;
         }
 
         public int Count() => Root == null ? 0 : Root.Count();
+
+        // 0_o How to refactor this mess T_T
+
+        private void InternalDeleteNodeWithTwoChildren(BSTFind<T> toDelete)
+        {
+            BSTNode<T> ancestor = toDelete.Node.RightChild;
+            while (ancestor.LeftChild != null) ancestor = ancestor.LeftChild;
+            if (ancestor.RightChild != null) InternalDeleteAncestorWithChild(toDelete, ancestor);
+            else InternalDeleteAncestorLeaf(toDelete, ancestor);
+        }
+
+        private void InternalDeleteAncestorWithChild(BSTFind<T> toDelete, BSTNode<T> ancestor)
+        {
+            if (ancestor.Parent.RightChild == ancestor) ancestor.Parent.RightChild = null;
+            else ancestor.Parent.LeftChild = null;
+
+            ancestor.Parent = toDelete.Node.Parent;
+
+            ancestor.LeftChild = toDelete.Node.LeftChild;
+            toDelete.Node.LeftChild.Parent = ancestor;
+
+            if (toDelete.Node.RightChild == ancestor)
+            {
+                ancestor.RightChild = toDelete.Node.RightChild;
+                toDelete.Node.RightChild.Parent = ancestor;
+            }
+
+            if (ancestor.Parent == null) Root = ancestor;
+            else if (toDelete.ToLeft) toDelete.Node.Parent.LeftChild = ancestor;
+            else toDelete.Node.Parent.RightChild = ancestor;
+        }
+        private void InternalDeleteAncestorLeaf(BSTFind<T> toDelete, BSTNode<T> ancestor)
+        {
+            if (ancestor.Parent.RightChild == ancestor) ancestor.Parent.RightChild = null;
+            else ancestor.Parent.LeftChild = null;
+            toDelete.Node.NodeKey = ancestor.NodeKey;
+            toDelete.Node.NodeValue = ancestor.NodeValue;
+        }
+        private void InternalDeleteCornerCase(BSTFind<T> toDelete)
+        {
+            if (toDelete.ToLeft) toDelete.Node.Parent.LeftChild = null;
+            else toDelete.Node.Parent.RightChild = null;
+        }
+        private void InternalDeleteGeneralCase(BSTFind<T> toDelete)
+        {
+            BSTNode<T> replacer = new(0, default, null);
+            if (toDelete.Node.LeftChild == null) replacer = toDelete.Node.RightChild;
+            else if (toDelete.Node.RightChild == null) replacer = toDelete.Node.LeftChild;
+
+            if (toDelete.Node.Parent == null && toDelete.Node.CountChildren() == 0) Root = null;
+            else if (toDelete.Node.Parent == null)
+            {
+                Root = replacer;
+                Root.Parent = null;
+            }
+            else
+            {
+                replacer.Parent = toDelete.Node.Parent;
+                if (toDelete.ToLeft) toDelete.Node.Parent.LeftChild = replacer;
+                else toDelete.Node.Parent.RightChild = replacer;
+            }
+        }
     }
 }
-
