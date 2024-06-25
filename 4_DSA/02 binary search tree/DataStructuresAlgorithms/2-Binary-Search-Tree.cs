@@ -25,7 +25,7 @@ namespace AlgorithmsDataStructures2
 
         public void Delete()
         {
-            if (IsLeaf()) Parent.ReplaceChild(this, null); // Object reference not set to an instance of an object.
+            if (IsLeaf()) Parent.ReplaceChild(this, null);
             else if (LeftChild == null) Parent.ReplaceChild(this, RightChild);
             else if (RightChild == null) Parent.ReplaceChild(this, LeftChild);
             else
@@ -35,8 +35,11 @@ namespace AlgorithmsDataStructures2
                 if (ancestor.IsLeaf()) Parent.ReplaceChild(this, ancestor);
                 else
                 {
-                    Parent.ReplaceChild(ancestor, ancestor.RightChild);
-                    Parent.ReplaceChild(this, ancestor);
+                    if (Parent != null)
+                    {
+                        Parent.ReplaceChild(ancestor, ancestor.RightChild);
+                        Parent.ReplaceChild(this, ancestor);
+                    }
                 }
             }
             Parent = null;
@@ -44,13 +47,21 @@ namespace AlgorithmsDataStructures2
         
         public void ReplaceChild(in BSTNode<T> oldChild, BSTNode<T> newChild)
         {
+            // Replace child of new (this) parent
+            if (oldChild.NodeKey < NodeKey) LeftChild = newChild;
+            else RightChild = newChild;
+
+            if (newChild == null) return;
+
+            if (newChild.Parent == null)
+            {
+                newChild.Parent = this;
+                return;
+            }
+
             // Remove link to child from old parent
             if (newChild.Parent.LeftChild == newChild) newChild.Parent.LeftChild = null;
             if (newChild.Parent.RightChild == newChild) newChild.Parent.RightChild = null;
-
-            // Replace child of new (this) parent
-            if (NodeKey < oldChild.NodeKey) LeftChild = newChild;
-            else RightChild = newChild;
 
             // Replace new child's link to parent
             newChild.Parent = this;
@@ -62,6 +73,11 @@ namespace AlgorithmsDataStructures2
             if (LeftChild != null) count += LeftChild.Count();
             if (RightChild != null) count += RightChild.Count();
             return count;
+        }
+
+        public override string ToString()
+        {
+            return "NodeKey: " + NodeKey + ", NodeValue: " + NodeValue;
         }
     }
 
@@ -136,6 +152,11 @@ namespace AlgorithmsDataStructures2
         {
             BSTFind<T> toDelete = FindNodeByKey(key);
             if (!toDelete.NodeHasKey) return false; // если узел не найден
+            if (Root.IsLeaf())
+            {
+                Root = null;
+                return true;
+            }
             toDelete.Node.Delete();
             return true;
         }
