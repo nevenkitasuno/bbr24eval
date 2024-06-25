@@ -141,11 +141,11 @@ namespace AlgorithmsDataStructures2
                 while (ancestor.LeftChild != null) ancestor = ancestor.LeftChild;
                 if (ancestor.RightChild != null)
                 {
-                    Console.WriteLine("toDelete node: " + toDelete.Node.ToString());
-                    Console.WriteLine();
-                    Console.WriteLine("Ancestor has right child: " + ancestor.ToString());
-                    Console.WriteLine("Ancestor right child: " + ancestor.RightChild.ToString());
-                    Console.WriteLine("Ancestor parent: " + ancestor.Parent.ToString());
+                    // Console.WriteLine("toDelete node: " + toDelete.Node.ToString());
+                    // Console.WriteLine();
+                    // Console.WriteLine("Ancestor has right child: " + ancestor.ToString());
+                    // Console.WriteLine("Ancestor right child: " + ancestor.RightChild.ToString());
+                    // Console.WriteLine("Ancestor parent: " + ancestor.Parent.ToString());
 
                     // only difference is those two lines
 

@@ -29,7 +29,7 @@ namespace AlgorithmsDataStructures2.Tests
 
             Assert.True(tree.DeleteNodeByKey(4)); // full-child
             result = tree.FindNodeByKey(4);
-            Assert.Null(result.Node);
+            Assert.False(result.NodeHasKey);
             Assert.Equal(4, tree.Count());
 
             tree.DeleteNodeByKey(9); // non-existing after deletion
@@ -45,15 +45,12 @@ namespace AlgorithmsDataStructures2.Tests
             Assert.Equal(1, tree.Count());
 
             tree.DeleteNodeByKey(6); // last
-            Assert.Equal(1, tree.Count());
+            Assert.Equal(0, tree.Count());
 
             tree.AddKeyValue(3, 4); // add after last deletion
-            Assert.NotNull(result.Node);
-            Assert.Equal(3, result.Node.NodeKey);
-            Assert.Equal(4, result.Node.NodeValue);
 
-            tree.DeleteNodeByKey(7); // right
-            Assert.Equal(2, tree.Count());
+            tree.DeleteNodeByKey(7); // non-existing
+            Assert.Equal(1, tree.Count());
         }
 
         [Fact] 
