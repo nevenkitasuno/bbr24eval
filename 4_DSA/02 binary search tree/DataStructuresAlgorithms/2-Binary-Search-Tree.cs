@@ -35,7 +35,6 @@ namespace AlgorithmsDataStructures2
             int count = 1;
             if (LeftChild != null) count += LeftChild.Count();
             if (RightChild != null) count += RightChild.Count();
-            // Console.WriteLine("count " + count + ": " + ToString());
             return count;
         }
 
@@ -51,7 +50,6 @@ namespace AlgorithmsDataStructures2
         {
             NodeKey = source.NodeKey;
             NodeValue = source.NodeValue;
-            // Parent = source.Parent;
             LeftChild = source.LeftChild;
             RightChild = source.RightChild;
         }
