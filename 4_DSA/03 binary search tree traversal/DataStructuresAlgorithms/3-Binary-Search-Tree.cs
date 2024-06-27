@@ -54,11 +54,11 @@ namespace AlgorithmsDataStructures2
         public List<BSTNode> DeepAllNodes(int order) // 0 - in-order, 1 - pre-order, 2 - post-order
         {
             List<BSTNode> nodes = new List<BSTNode>();
-            if (order == 1) nodes.Add(this);
+            if (order == 2) nodes.Add(this);
             if (LeftChild!= null) nodes.AddRange(LeftChild.DeepAllNodes(order));
             if (order == 0) nodes.Add(this);
             if (RightChild!= null) nodes.AddRange(RightChild.DeepAllNodes(order));
-            if (order == 2) nodes.Add(this);
+            if (order == 1) nodes.Add(this);
             return nodes;
         }
     }
