@@ -155,8 +155,7 @@ namespace AlgorithmsDataStructures2
             }
 
             if (ancestor.Parent == null) Root = ancestor;
-            else if (toDelete.ToLeft) toDelete.Node.Parent.LeftChild = ancestor;
-            else toDelete.Node.Parent.RightChild = ancestor;
+            else InternalReplaceChild(toDelete.Node.Parent, ancestor, toDelete.ToLeft);
         }
         private void InternalDeleteAncestorLeaf(BSTFind<T> toDelete, BSTNode<T> ancestor)
         {
@@ -165,11 +164,7 @@ namespace AlgorithmsDataStructures2
             toDelete.Node.NodeKey = ancestor.NodeKey;
             toDelete.Node.NodeValue = ancestor.NodeValue;
         }
-        private void InternalDeleteCornerCase(BSTFind<T> toDelete)
-        {
-            if (toDelete.ToLeft) toDelete.Node.Parent.LeftChild = null;
-            else toDelete.Node.Parent.RightChild = null;
-        }
+        private void InternalDeleteCornerCase(BSTFind<T> toDelete) => InternalReplaceChild(toDelete.Node.Parent, null, toDelete.ToLeft);
         private void InternalDeleteGeneralCase(BSTFind<T> toDelete)
         {
             BSTNode<T> replacer = new(0, default, null);
@@ -185,9 +180,14 @@ namespace AlgorithmsDataStructures2
             else
             {
                 replacer.Parent = toDelete.Node.Parent;
-                if (toDelete.ToLeft) toDelete.Node.Parent.LeftChild = replacer;
-                else toDelete.Node.Parent.RightChild = replacer;
+                InternalReplaceChild(toDelete.Node.Parent, replacer, toDelete.ToLeft);
             }
+        }
+
+        private void InternalReplaceChild(BSTNode<T> parent, BSTNode<T> replacer, bool isLeftChild)
+        {
+            if (isLeftChild) parent.LeftChild = replacer;
+            else parent.RightChild = replacer;
         }
     }
 }
