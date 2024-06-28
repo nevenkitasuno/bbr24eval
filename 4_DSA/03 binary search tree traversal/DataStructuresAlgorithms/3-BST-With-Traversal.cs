@@ -238,8 +238,7 @@ namespace AlgorithmsDataStructures2
 
         public void Invert()
         {
-            if (Root == null) return;
-            Root.Invert();
+            if (Root != null) Root.Invert();
         }
     }
 }
