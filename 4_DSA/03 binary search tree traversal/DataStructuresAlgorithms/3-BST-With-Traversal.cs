@@ -60,6 +60,17 @@ namespace AlgorithmsDataStructures2
             if (order == 1) nodes.Add(this);
             return nodes;
         }
+
+        public void Invert()
+        {
+            // post-order traversal
+            if (LeftChild != null) LeftChild.Invert();
+            if (RightChild != null) RightChild.Invert();
+
+            BSTNode<T> temp = LeftChild;
+            LeftChild = RightChild;
+            RightChild = temp;
+        }
     }
 
     // промежуточный результат поиска
@@ -223,6 +234,12 @@ namespace AlgorithmsDataStructures2
         {
             if (Root == null) return new List<BSTNode>();
             return Root.DeepAllNodes(order);
+        }
+
+        public void Invert()
+        {
+            if (Root == null) return;
+            Root.Invert();
         }
     }
 }

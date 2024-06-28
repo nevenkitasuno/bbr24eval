@@ -194,5 +194,27 @@ namespace AlgorithmsDataStructures2.Tests
             Assert.Equal(6, nodes[4].NodeKey);
             Assert.Equal(5, nodes[5].NodeKey);
         }
+
+        [Fact]
+        public void InvertTest()
+        {
+            BST<int> tree = new BST<int>(new BSTNode<int>(5, 2, null));
+            tree.AddKeyValue(3, 4);
+            tree.AddKeyValue(4, 4);
+            tree.AddKeyValue(6, 5);
+            tree.AddKeyValue(7, 5);
+            tree.AddKeyValue(2, 6);
+            Assert.Equal(6, tree.Count());
+            tree.Invert();
+            Assert.Equal(6, tree.Count());
+            List<BSTNode> nodes = tree.WideAllNodes();
+            Assert.Equal(6, nodes.Count);
+            Assert.Equal(5, nodes[0].NodeKey);
+            Assert.Equal(6, nodes[1].NodeKey);
+            Assert.Equal(3, nodes[2].NodeKey);
+            Assert.Equal(7, nodes[3].NodeKey);
+            Assert.Equal(4, nodes[4].NodeKey);
+            Assert.Equal(2, nodes[5].NodeKey);
+        }
     }
 }
