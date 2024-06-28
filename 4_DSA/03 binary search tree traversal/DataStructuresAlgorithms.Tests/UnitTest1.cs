@@ -165,7 +165,7 @@ namespace AlgorithmsDataStructures2.Tests
             tree.AddKeyValue(7, 5);
             tree.AddKeyValue(2, 6);
             Assert.Equal(6, tree.Count());
-            List<BSTNode> nodes = tree.DeepAllNodes(1);
+            List<BSTNode> nodes = tree.DeepAllNodes(2);
             Assert.Equal(6, nodes.Count);
             Assert.Equal(5, nodes[0].NodeKey);
             Assert.Equal(3, nodes[1].NodeKey);
@@ -185,7 +185,7 @@ namespace AlgorithmsDataStructures2.Tests
             tree.AddKeyValue(7, 5);
             tree.AddKeyValue(2, 6);
             Assert.Equal(6, tree.Count());
-            List<BSTNode> nodes = tree.DeepAllNodes(2);
+            List<BSTNode> nodes = tree.DeepAllNodes(1);
             Assert.Equal(6, nodes.Count);
             Assert.Equal(2, nodes[0].NodeKey);
             Assert.Equal(4, nodes[1].NodeKey);
