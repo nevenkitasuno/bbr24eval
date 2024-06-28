@@ -9,14 +9,14 @@ namespace AlgorithmsDataStructures2.Tests
         [Fact] 
         public void GeneralTest() // FAIL
         {
-            var tree = new BST<int>(new BSTNode<int>(5, 2, null));
+            BST<int> tree = new BST<int>(new BSTNode<int>(5, 2, null));
             tree.AddKeyValue(3, 4);
             tree.AddKeyValue(4, 4);
             tree.AddKeyValue(6, 5);
             tree.AddKeyValue(7, 5);
             tree.AddKeyValue(7, 5);
-            
-            var result = tree.FindNodeByKey(4);
+
+            BSTFind<int> result = tree.FindNodeByKey(4);
 
             Assert.NotNull(result.Node);
             Assert.Equal(4, result.Node.NodeKey);
@@ -57,7 +57,7 @@ namespace AlgorithmsDataStructures2.Tests
         [Fact] 
         public void DeleteNonExistingTest()
         {
-            var tree = new BST<int>(new BSTNode<int>(5, 2, null));
+            BST<int> tree = new BST<int>(new BSTNode<int>(5, 2, null));
             tree.AddKeyValue(3, 4);
             tree.AddKeyValue(4, 4);
             tree.AddKeyValue(6, 5);
@@ -71,7 +71,7 @@ namespace AlgorithmsDataStructures2.Tests
         [Fact] 
         public void DeleteRightTest()
         {
-            var tree = new BST<int>(new BSTNode<int>(5, 2, null));
+            BST<int> tree = new BST<int>(new BSTNode<int>(5, 2, null));
             tree.AddKeyValue(3, 4);
             tree.AddKeyValue(4, 4);
             tree.AddKeyValue(6, 5);
@@ -85,7 +85,7 @@ namespace AlgorithmsDataStructures2.Tests
         [Fact] 
         public void DeleteHeadTest()
         {
-            var tree = new BST<int>(new BSTNode<int>(5, 2, null));
+            BST<int> tree = new BST<int>(new BSTNode<int>(5, 2, null));
             tree.AddKeyValue(3, 4);
             tree.AddKeyValue(4, 4);
             tree.AddKeyValue(6, 5);
@@ -99,7 +99,7 @@ namespace AlgorithmsDataStructures2.Tests
         [Fact] 
         public void DeleteLastTest()
         {
-            var tree = new BST<int>(new BSTNode<int>(5, 2, null));
+            BST<int> tree = new BST<int>(new BSTNode<int>(5, 2, null));
             Assert.Equal(1, tree.Count());
 
             tree.DeleteNodeByKey(5);
@@ -109,14 +109,14 @@ namespace AlgorithmsDataStructures2.Tests
         [Fact] 
         public void WideAllNodesTest()
         {
-            var tree = new BST<int>(new BSTNode<int>(5, 2, null));
+            BST<int> tree = new BST<int>(new BSTNode<int>(5, 2, null));
             tree.AddKeyValue(3, 4);
             tree.AddKeyValue(4, 4);
             tree.AddKeyValue(6, 5);
             tree.AddKeyValue(7, 5);
             tree.AddKeyValue(2, 6);
             Assert.Equal(6, tree.Count());
-            var nodes = tree.WideAllNodes();
+            List<BSTNode> nodes = tree.WideAllNodes();
             Assert.Equal(6, nodes.Count);
             Assert.Equal(5, nodes[0].NodeKey);
             Assert.Equal(3, nodes[1].NodeKey);
@@ -129,23 +129,23 @@ namespace AlgorithmsDataStructures2.Tests
         [Fact] 
         public void WideAllNodes_EmptyInputTest()
         {
-            var tree = new BST<int>(null);
+            BST<int> tree = new BST<int>(null);
             Assert.Equal(0, tree.Count());
-            var nodes = tree.WideAllNodes();
+            List<BSTNode> nodes = tree.WideAllNodes();
             Assert.Empty(nodes);
         }
 
         [Fact]
         public void DeepInOrderTest()
         {
-            var tree = new BST<int>(new BSTNode<int>(5, 2, null));
+            BST<int> tree = new BST<int>(new BSTNode<int>(5, 2, null));
             tree.AddKeyValue(3, 4);
             tree.AddKeyValue(4, 4);
             tree.AddKeyValue(6, 5);
             tree.AddKeyValue(7, 5);
             tree.AddKeyValue(2, 6);
             Assert.Equal(6, tree.Count());
-            var nodes = tree.DeepAllNodes(0);
+            List<BSTNode> nodes = tree.DeepAllNodes(0);
             Assert.Equal(6, nodes.Count);
             Assert.Equal(2, nodes[0].NodeKey);
             Assert.Equal(3, nodes[1].NodeKey);
@@ -158,14 +158,14 @@ namespace AlgorithmsDataStructures2.Tests
         [Fact]
         public void DeepPreOrderTest()
         {
-            var tree = new BST<int>(new BSTNode<int>(5, 2, null));
+            BST<int> tree = new BST<int>(new BSTNode<int>(5, 2, null));
             tree.AddKeyValue(3, 4);
             tree.AddKeyValue(4, 4);
             tree.AddKeyValue(6, 5);
             tree.AddKeyValue(7, 5);
             tree.AddKeyValue(2, 6);
             Assert.Equal(6, tree.Count());
-            var nodes = tree.DeepAllNodes(1);
+            List<BSTNode> nodes = tree.DeepAllNodes(1);
             Assert.Equal(6, nodes.Count);
             Assert.Equal(5, nodes[0].NodeKey);
             Assert.Equal(3, nodes[1].NodeKey);
@@ -178,14 +178,14 @@ namespace AlgorithmsDataStructures2.Tests
         [Fact]
         public void DeepPostOrderTest()
         {
-            var tree = new BST<int>(new BSTNode<int>(5, 2, null));
+            BST<int> tree = new BST<int>(new BSTNode<int>(5, 2, null));
             tree.AddKeyValue(3, 4);
             tree.AddKeyValue(4, 4);
             tree.AddKeyValue(6, 5);
             tree.AddKeyValue(7, 5);
             tree.AddKeyValue(2, 6);
             Assert.Equal(6, tree.Count());
-            var nodes = tree.DeepAllNodes(2);
+            List<BSTNode> nodes = tree.DeepAllNodes(2);
             Assert.Equal(6, nodes.Count);
             Assert.Equal(2, nodes[0].NodeKey);
             Assert.Equal(4, nodes[1].NodeKey);
