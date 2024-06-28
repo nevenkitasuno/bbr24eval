@@ -7,12 +7,11 @@ namespace AlgorithmsDataStructures2
 {
     public class BSTNode
     {
-        public int NodeKey;
+        public int NodeKey; // ключ узла
     }
 
     public class BSTNode<T> : BSTNode
     {
-        public int NodeKey; // ключ узла
         public T NodeValue; // значение в узле
         public BSTNode<T> Parent; // родитель или null для корня
         public BSTNode<T> LeftChild; // левый потомок
@@ -55,9 +54,9 @@ namespace AlgorithmsDataStructures2
         {
             List<BSTNode> nodes = new List<BSTNode>();
             if (order == 2) nodes.Add(this);
-            if (LeftChild!= null) nodes.AddRange(LeftChild.DeepAllNodes(order));
+            if (LeftChild != null) nodes.AddRange(LeftChild.DeepAllNodes(order));
             if (order == 0) nodes.Add(this);
-            if (RightChild!= null) nodes.AddRange(RightChild.DeepAllNodes(order));
+            if (RightChild != null) nodes.AddRange(RightChild.DeepAllNodes(order));
             if (order == 1) nodes.Add(this);
             return nodes;
         }
@@ -203,7 +202,7 @@ namespace AlgorithmsDataStructures2
             if (isLeftChild) parent.LeftChild = replacer;
             else parent.RightChild = replacer;
         }
-        
+
         public List<BSTNode> WideAllNodes()
         {
             List<BSTNode> nodes = new List<BSTNode>();
@@ -214,8 +213,8 @@ namespace AlgorithmsDataStructures2
             {
                 BSTNode<T> current = queue.Dequeue();
                 nodes.Add(current);
-                if (current.LeftChild!= null) queue.Enqueue(current.LeftChild);
-                if (current.RightChild!= null) queue.Enqueue(current.RightChild);
+                if (current.LeftChild != null) queue.Enqueue(current.LeftChild);
+                if (current.RightChild != null) queue.Enqueue(current.RightChild);
             }
             return nodes;
         }
