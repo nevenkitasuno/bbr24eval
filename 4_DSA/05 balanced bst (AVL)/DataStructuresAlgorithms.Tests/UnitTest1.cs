@@ -6,20 +6,6 @@ namespace AlgorithmsDataStructures2
 {
     public class BalancedBSTTests
     {
-        // [Fact]
-        // public void TestGenerateBBSTArray()
-        // {
-        //     // Arrange
-        //     int[] inputArray = { 1, 2, 3, 4, 5 };
-        //     int[] expectedTree = { 3, 1, 4, 2, 5 };
-
-        //     // Act
-        //     int[] tree = BalancedBST.GenerateBBSTArray(inputArray);
-
-        //     // Assert
-        //     Assert.Equal(expectedTree, tree);
-        // }
-
         [Fact]
         public void TestGenerateBBSTArray_3Elements()
         {
