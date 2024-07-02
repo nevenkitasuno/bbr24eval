@@ -17,8 +17,15 @@ namespace AlgorithmsDataStructures2
             if (treeSlot >= tree.Length || source.Length == 0) return;
             int mid = source.Length / 2;
             tree[treeSlot] = source[mid];
-            InternalInsertInTree(tree, treeSlot * 2 + 1, source[0..mid]);
-            InternalInsertInTree(tree, treeSlot * 2 + 2, source[(mid + 1)..]);
+
+            int[] left = new int[mid];
+            Array.Copy(source, left, mid);
+
+            int[] right = new int[mid];
+            Array.Copy(source, mid + 1, right, 0, mid);
+
+            InternalInsertInTree(tree, treeSlot * 2 + 1,left);
+            InternalInsertInTree(tree, treeSlot * 2 + 2, right);
         }
     }
 }
