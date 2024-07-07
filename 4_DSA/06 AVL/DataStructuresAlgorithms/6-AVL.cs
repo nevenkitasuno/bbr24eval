@@ -69,12 +69,9 @@ namespace AlgorithmsDataStructures2
 		{
 			if (root_node == null) return true;
 
-			if (IsBalanced(root_node.RightChild) &&
-				IsBalanced(root_node.LeftChild) &&
-				InternalAbs(InternalHeight(root_node.LeftChild) - InternalHeight(root_node.RightChild)) <= 1)
-				return true;
-
-			return false;
+			return	IsBalanced(root_node.RightChild) &&
+					IsBalanced(root_node.LeftChild) &&
+					InternalAbs(InternalHeight(root_node.LeftChild) - InternalHeight(root_node.RightChild)) <= 1;
 		}
 
 		private int InternalHeight(BSTNode node) =>
