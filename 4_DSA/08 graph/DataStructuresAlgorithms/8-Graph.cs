@@ -74,3 +74,4 @@ namespace AlgorithmsDataStructures2
         private bool InternalIsVertex(int v1, int v2) => InternalIsVertex(v1) && InternalIsVertex(v2);
     }
 }
+
