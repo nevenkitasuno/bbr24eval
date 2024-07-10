@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace AlgorithmsDataStructures2
 {
@@ -78,6 +79,24 @@ namespace AlgorithmsDataStructures2
             NewChild.Parent = this;
             NewChild.Level = Level + 1;
         }
+
+        private bool InternalIsEvenTree() => (CountDescendants() + 1) % 2 == 0;
+        public List<T> EvenTrees()
+        {
+            List<T> evenTreesPairs = new List<T>();
+            if (Children == null) return evenTreesPairs;
+            foreach (SimpleTreeNode<T> child in Children) evenTreesPairs.AddRange(child.EvenTrees());
+            foreach (SimpleTreeNode<T> child in Children)
+            {
+                if (child.InternalIsEvenTree())
+                {
+                    evenTreesPairs.Add(NodeValue);
+                    evenTreesPairs.Add(child.NodeValue);
+                    // RemoveChild(child); // System.InvalidOperationException : Collection was modified; enumeration operation may not execute.
+                }
+            }
+            return evenTreesPairs;
+        }
     }
 
     public class SimpleTree<T>
@@ -108,10 +127,6 @@ namespace AlgorithmsDataStructures2
 
         public int LeafCount() => Root.LeafCount();
 
-        public List<T> EvenTrees()
-        {
-            // ...
-        }
-
+        public List<T> EvenTrees() => Root.EvenTrees();
     }
 }
