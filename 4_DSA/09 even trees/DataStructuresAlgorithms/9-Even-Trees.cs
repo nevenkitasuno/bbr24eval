@@ -93,7 +93,7 @@ namespace AlgorithmsDataStructures2
             int ancestorsCount = 1;
             foreach (SimpleTreeNode<T> child in Children)
             {
-                intchildAncestorsCount = child.InternalEvenTreesRecursion(evenTreesPairs);
+                int childAncestorsCount = child.InternalEvenTreesRecursion(evenTreesPairs);
                 ancestorsCount += childAncestorsCount;
                 if (childAncestorsCount % 2 == 0)
                 {
