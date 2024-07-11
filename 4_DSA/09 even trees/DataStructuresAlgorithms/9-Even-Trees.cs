@@ -84,18 +84,24 @@ namespace AlgorithmsDataStructures2
         public List<T> EvenTrees()
         {
             List<T> evenTreesPairs = new List<T>();
-            if (Children == null) return evenTreesPairs;
-            foreach (SimpleTreeNode<T> child in Children) evenTreesPairs.AddRange(child.EvenTrees());
+            InternalEvenTreesRecursion(evenTreesPairs);
+            return evenTreesPairs;
+        }
+        private int InternalEvenTreesRecursion(List<T> evenTreesPairs)
+        {
+            if (Children == null) return 1;
+            int ancestorsCount = 1;
             foreach (SimpleTreeNode<T> child in Children)
             {
-                if (child.InternalIsEvenTree())
+                intchildAncestorsCount = child.InternalEvenTreesRecursion(evenTreesPairs);
+                ancestorsCount += childAncestorsCount;
+                if (childAncestorsCount % 2 == 0)
                 {
                     evenTreesPairs.Add(NodeValue);
                     evenTreesPairs.Add(child.NodeValue);
-                    // RemoveChild(child); // System.InvalidOperationException : Collection was modified; enumeration operation may not execute.
                 }
             }
-            return evenTreesPairs;
+            return ancestorsCount;
         }
     }
 
