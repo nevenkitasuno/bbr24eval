@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgorithmsDataStructures2
 {
@@ -77,9 +78,39 @@ namespace AlgorithmsDataStructures2
 
         public List<Vertex<T>> DepthFirstSearch(int VFrom, int VTo)
         {
+            List<Vertex<T>> path = new();
+            foreach (Vertex<T> vtx in vertex) vtx.Hit = false;
+            vertex[VFrom].Hit = true;
+            path.Add(vertex[VFrom]);
+            while (path.Count > 0)
+            {
+                int current = path.Count - 1;
+                int nextPossible = -1;
+                bool nextPossibleFound = false;
+                for (int i = 0, vertexCount = vertex.Count(); i < vertexCount; i++)
+                {
+                    if (IsEdge(i, VTo))
+                    {
+                        path.Add(vertex[i]);
+                        return path;
+                    }
+                    if (!nextPossibleFound && vertex[i].Hit == false && IsEdge(current, i))
+                    {
+                        nextPossible = i;
+                        nextPossibleFound = true;
+                    }
+                }
+                if (!nextPossibleFound) path.RemoveAt(path.Count - 1);
+                else
+                {
+                    path.Add(vertex[nextPossible]);
+                    vertex[nextPossible].Hit = true;
+                }
+            }
             // Узлы задаются позициями в списке vertex.
             // Возвращается список узлов -- путь из VFrom в VTo.
             // Список пустой, если пути нету.
+            return new();
         }
 
     }
