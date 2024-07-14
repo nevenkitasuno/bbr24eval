@@ -94,10 +94,16 @@ namespace AlgorithmsDataStructures2
             vertex[v].Hit = true;
             path.Add(vertex[v]);
         }
+        private int InternalFindNextPossible(int current)
+        {
+            int nextPossible = -1;
+            for (int i = 0, vertexCount = vertex.Count(); i < vertexCount; i++)
+                if (nextPossible == -1 && IsEdge(i, current) &&!vertex[i].Hit) nextPossible = i;
+            return nextPossible;
+        }
         private bool InternalSeekVTo(List<Vertex<T>> path, int VTo)
         {
             int current = path.Count - 1;
-            int nextPossible = -1;
 
             if (IsEdge(current, VTo))
             {
@@ -105,11 +111,7 @@ namespace AlgorithmsDataStructures2
                 return true;
             }
 
-            for (int i = 0, vertexCount = vertex.Count(); i < vertexCount; i++)
-            {
-                if (nextPossible == -1 && IsEdge(i, current) && !vertex[i].Hit) nextPossible = i;
-            }
-
+            int nextPossible = InternalFindNextPossible(current);
             if (nextPossible != -1)
             {
                 InternalPickVertex(path, nextPossible);
@@ -121,43 +123,6 @@ namespace AlgorithmsDataStructures2
             if (path.Count == 0) return false;
 
             return InternalSeekVTo(path, VTo);
-        }
-
-        public List<Vertex<T>> DepthFirstSearch___old(int VFrom, int VTo)
-        {
-            List<Vertex<T>> path = new();
-            foreach (Vertex<T> vtx in vertex) vtx.Hit = false;
-            vertex[VFrom].Hit = true;
-            path.Add(vertex[VFrom]);
-            while (path.Count > 0)
-            {
-                int current = path.Count - 1;
-                int nextPossible = -1;
-                bool nextPossibleFound = false;
-                for (int i = 0, vertexCount = vertex.Count(); i < vertexCount; i++)
-                {
-                    if (IsEdge(i, VTo))
-                    {
-                        path.Add(vertex[i]);
-                        return path;
-                    }
-                    if (!nextPossibleFound && vertex[i].Hit == false && IsEdge(current, i))
-                    {
-                        nextPossible = i;
-                        nextPossibleFound = true;
-                    }
-                }
-                if (!nextPossibleFound) path.RemoveAt(path.Count - 1);
-                else
-                {
-                    path.Add(vertex[nextPossible]);
-                    vertex[nextPossible].Hit = true;
-                }
-            }
-            // Узлы задаются позициями в списке vertex.
-            // Возвращается список узлов -- путь из VFrom в VTo.
-            // Список пустой, если пути нету.
-            return new();
         }
 
     }
