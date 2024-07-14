@@ -84,10 +84,9 @@ namespace AlgorithmsDataStructures2
             foreach (Vertex<T> vtx in vertex) if (vtx != null) vtx.Hit = false;
 
             int current = VFrom;
+            InternalPickVertex(path, current);
             while (path.Count > 0)
             {
-                InternalPickVertex(path, current);
-
                 if (IsEdge(current, VTo))
                 {
                     InternalPickVertex(path, VTo);
@@ -95,10 +94,14 @@ namespace AlgorithmsDataStructures2
                 }
 
                 current = InternalFindNextPossible(current);
-                if (current != -1) continue;
-
-                path.RemoveAt(path.Count - 1);
-                current = path.Count - 1;
+                if (current == -1)
+                {
+                    path.RemoveAt(path.Count - 1);
+                    current = path.Count - 1;
+                    continue;
+                }
+                
+                InternalPickVertex(path, current);
             }
             // Узлы задаются позициями в списке vertex.
             // Возвращается список узлов -- путь из VFrom в VTo.
