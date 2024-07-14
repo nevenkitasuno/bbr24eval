@@ -79,6 +79,53 @@ namespace AlgorithmsDataStructures2
         public List<Vertex<T>> DepthFirstSearch(int VFrom, int VTo)
         {
             List<Vertex<T>> path = new();
+            foreach (Vertex<T> vtx in vertex) if (vtx != null) vtx.Hit = false;
+            InternalPickVertex(path, VFrom);
+            bool isPathFound = InternalSeekVTo(path, VTo);
+            // Узлы задаются позициями в списке vertex.
+            // Возвращается список узлов -- путь из VFrom в VTo.
+            // Список пустой, если пути нету.
+            if (!isPathFound) return new();
+            return path;
+        }
+        
+        private void InternalPickVertex(List<Vertex<T>> path, int v)
+        {
+            vertex[v].Hit = true;
+            path.Add(vertex[v]);
+        }
+        private bool InternalSeekVTo(List<Vertex<T>> path, int VTo)
+        {
+            int current = path.Count - 1;
+            int nextPossible = -1;
+
+            if (IsEdge(current, VTo))
+            {
+                path.Add(vertex[VTo]);
+                return true;
+            }
+
+            for (int i = 0, vertexCount = vertex.Count(); i < vertexCount; i++)
+            {
+                if (nextPossible == -1 && IsEdge(i, current) && !vertex[i].Hit) nextPossible = i;
+            }
+
+            if (nextPossible != -1)
+            {
+                InternalPickVertex(path, nextPossible);
+                return InternalSeekVTo(path, VTo);
+            }
+
+            path.RemoveAt(path.Count - 1);
+
+            if (path.Count == 0) return false;
+
+            return InternalSeekVTo(path, VTo);
+        }
+
+        public List<Vertex<T>> DepthFirstSearch___old(int VFrom, int VTo)
+        {
+            List<Vertex<T>> path = new();
             foreach (Vertex<T> vtx in vertex) vtx.Hit = false;
             vertex[VFrom].Hit = true;
             path.Add(vertex[VFrom]);
