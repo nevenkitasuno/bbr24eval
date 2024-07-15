@@ -106,7 +106,7 @@ namespace AlgorithmsDataStructures2
             // Узлы задаются позициями в списке vertex.
             // Возвращается список узлов -- путь из VFrom в VTo.
             // Список пустой, если пути нету.
-            return path;
+            return new();
         }
 
         private void InternalPickVertex(List<Vertex<T>> path, int v)
