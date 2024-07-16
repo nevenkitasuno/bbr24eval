@@ -101,6 +101,7 @@ namespace AlgorithmsDataStructures2
         public List<Vertex<T>> BreadthFirstSearch(int VFrom, int VTo)
         {
             if (!InternalIsVertex(VFrom, VTo)) return new();
+            if (VFrom == VTo) return new List<Vertex<T>>{vertex[VFrom]};
             Queue<int> path = new();
             foreach (Vertex<T> vtx in vertex) if (vtx != null) vtx.Hit = false;
             int current = VFrom;
@@ -114,12 +115,11 @@ namespace AlgorithmsDataStructures2
                 }
 
                 current = InternalFindNextPossible(current);
-                if (current == -1 && path.Count > 0)
+                if (current == -1)
                 {
                     current = path.Dequeue();
                     continue;
                 }
-                if (current == -1) continue;
                 InternalPickVertex(path, current);
             }
             // узлы задаются позициями в списке vertex.
