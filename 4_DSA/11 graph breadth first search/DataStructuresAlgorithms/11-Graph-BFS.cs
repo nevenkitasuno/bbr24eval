@@ -8,7 +8,7 @@ namespace AlgorithmsDataStructures2
     public class Queue<T> : IEnumerable<T>
     {
         private LinkedList<T> _elements;
-        public Queue() => _elements = new LinkedList<T>(); 
+        public Queue() => _elements = new LinkedList<T>();
         public void Enqueue(T item) => _elements.AddLast(item);
         public int Count => _elements.Count;
         public T Dequeue()
@@ -101,36 +101,29 @@ namespace AlgorithmsDataStructures2
         public List<Vertex<T>> BreadthFirstSearch(int VFrom, int VTo)
         {
             if (!InternalIsVertex(VFrom, VTo)) return new();
-            if (VFrom == VTo) return new List<Vertex<T>>{vertex[VFrom]};
-            Queue<int> path = new();
-            foreach (Vertex<T> vtx in vertex) if (vtx != null) vtx.Hit = false;
-            int current = VFrom;
-            InternalPickVertex(path, current);
-            while (path.Count > 0)
-            {
-                if (IsEdge(current, VTo))
-                {
-                    InternalPickVertex(path, VTo);
-                    return InternalVertexListFromIdxQueue(path);
-                }
 
-                current = InternalFindNextPossible(current);
-                if (current == -1)
-                {
-                    current = path.Dequeue();
-                    continue;
-                }
-                InternalPickVertex(path, current);
+            foreach (Vertex<T> vtx in vertex) if (vtx != null) vtx.Hit = false;
+            int[] previous = new int[vertex.Count()];
+
+            Queue<int> traverse = new();
+            InternalPickVertex(traverse, VFrom, previous, -1);
+            while (traverse.Count > 0)
+            {
+                int current = traverse.Dequeue();
+                if (current == VTo) return InternalFormPath(previous, VTo);
+                int edge;
+                while ((edge = InternalFindNextPossible(current)) != -1) InternalPickVertex(traverse, edge, previous, current);
             }
             // узлы задаются позициями в списке vertex.
             // возвращает список узлов -- путь из VFrom в VTo
             // или пустой список, если пути нету
             return new();
         }
-        private void InternalPickVertex(Queue<int> path, int v)
+        private void InternalPickVertex(Queue<int> path, int v, int[] allPreviousArray, int previousOfThisVertex)
         {
             vertex[v].Hit = true;
             path.Enqueue(v);
+            allPreviousArray[v] = previousOfThisVertex;
         }
         private int InternalFindNextPossible(int current)
         {
@@ -139,11 +132,17 @@ namespace AlgorithmsDataStructures2
                 if (IsEdge(i, current) && !vertex[i].Hit) nextPossible = i;
             return nextPossible;
         }
-        private List<Vertex<T>> InternalVertexListFromIdxQueue(Queue<int> path)
+        private List<Vertex<T>> InternalFormPath(int[] previous, int VTo)
         {
-            List<Vertex<T>> vertices = new ();
-            while (path.Count > 0) vertices.Add(vertex[path.Dequeue()]);
-            return vertices;
+            List<Vertex<T>> path = new();
+            int current = VTo;
+            while (current != -1)
+            {
+                path.Add(vertex[current]);
+                current = previous[current];
+            }
+            path.Reverse();
+            return path;
         }
     }
 }
