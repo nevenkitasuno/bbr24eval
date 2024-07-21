@@ -87,8 +87,8 @@ namespace AlgorithmsDataStructures2
             if (!InternalIsVertex(v)) return false;
             for (int i = 0; i < max_vertex; i++)
                 for (int j = 0; j < max_vertex; j++)
-                    if (i != v && j != v && i != j && InternalAllHasEdges(v, i, j)) return true;
-            return false;
+                    if (i != v && j != v && i != j && InternalAllHasEdges(v, i, j)) return false;
+            return true;
         }
         private bool InternalAllHasEdges(int v1, int v2, int v3) => IsEdge(v1, v2) && IsEdge(v1, v3) && IsEdge(v2, v3);
     }
