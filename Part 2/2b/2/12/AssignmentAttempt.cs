@@ -15,6 +15,6 @@ public abstract class Any : General
             ref Any target,
             General source)
         {
-            target = source as General;
+            target = source as Any;
         }
 }
