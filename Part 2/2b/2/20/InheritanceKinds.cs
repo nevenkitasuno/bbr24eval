@@ -2,12 +2,12 @@
 
 class Human
 {
-    public virtual string Greet(string name) => $"Saluton, {name}.";
+    public virtual string Greet(string name) => $"Saluton, {name}";
 }
 
 class FrenchSpeaker : Human
 {
-    public override string Greet(string name) => $"Bonjour, {name}!";
+    public override string Greet(string name) => $"Bonjour, {name}";
 }
 
 // Наследование с конкретизацией
@@ -29,6 +29,6 @@ class Circle : Shape
 
 class SomeCards : IEnumerable
 {
-    string[] days = { "Jack", "Queen", "King", "Ace" };
-    public IEnumerator GetEnumerator() => days.GetEnumerator();
+    string[] cards = { "Jack", "Queen", "King", "Ace" };
+    public IEnumerator GetEnumerator() => cards.GetEnumerator();
 }
